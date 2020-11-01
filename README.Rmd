@@ -27,7 +27,7 @@ Wild_fire_url1<- Wild_fire_url$V1
 
 typeof(Wild_fire_url1)
 
-# Since data type is integer, converted it into character
+# Since the data type is an integer, converted it into character
 
 Final_urls<-as.character(Wild_fire_url1)
 
