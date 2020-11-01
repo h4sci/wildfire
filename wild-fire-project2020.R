@@ -1,8 +1,8 @@
-
-#########################################################################
 #Wild Fire Project 2020                                                 #
 #Hacking for Social Sciences - An Applied Guide to Programming with Data#
-#########################################################################
+
+
+# Downloaded bulk data of wild fire-----
 
 library(data.table)
 
@@ -46,3 +46,5 @@ destfile = paste0(data.folder, fname.x)
 for(i in seq_along(urls)){
   download.file(urls[i], destfile[i], mode="wb")
 }
+
+# Processing of data--------
