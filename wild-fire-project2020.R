@@ -6,13 +6,14 @@ setwd("C:/Users/scstepha/Documents/Forschung/Wildfire") #enter working directory
 getwd()
 #Working directory Structure
   #Working Directory: Wildfire
-    #Folder: Raw_Data
-      #contains "Artes-Vivancos_San-Miguel_2018"
+    #Folder: Raw_Data 
+      #contains "Artes-Vivancos_San-Miguel_2018" [do not write in this folder]
     #Folder: Data
 
 # Downloaded bulk data of wild fire-----
 
 library(data.table)
+library(tidyverse)
 
 # Read a text file
 
@@ -37,7 +38,7 @@ urls<-Final_urls
 
 #Define URL folder where to save the data (destination)
 
-data.folder = "Data"
+data.folder = "./Data"
 #data.folder = "E:/Wild_fire_project/"
 
 #Get file name from url, with file extention
