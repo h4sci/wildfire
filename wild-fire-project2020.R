@@ -15,6 +15,9 @@ getwd()
 
 library(data.table)
 library(tidyverse)
+library(rgdal)
+library(rgeos)
+library(raster)# for metadata/attributes- vectors or rasters
 
 # Read a text file
 
@@ -60,3 +63,20 @@ for(i in seq_along(urls)){
 }
 
 # Processing of data--------
+
+tmpdir_R <- tempdir()
+
+##Read data into R
+#Unzip downloaded data
+  unzip("./Raw_Data/MODIS_BA_GLOBAL_1_1_2002.zip", exdir = tmpdir_R )
+#Untar downloaded data (use the next two lines if you want to untar to your disk)
+  #untar(tarfile = file.path(tempd1, "/MODIS_BA_GLOBAL_1_1_2002.tar"), exdir = "./Raw_Data/Extracted/")
+  #testdatashp <- readOGR(dsn = "./Raw_Data/Extracted", "MODIS_BA_GLOBAL_1_1_2001") 
+  untar(tarfile = file.path(tempd1, "/MODIS_BA_GLOBAL_1_1_2002.tar"), exdir = tmpdir_R)
+  testdatashp <- readOGR(dsn = tmpdir_R, "MODIS_BA_GLOBAL_1_1_2002") #path, filename (here identical)
+  unlink(tmpdir_R) #deletes tempfile. Does that work?
+
+
+
+
+
