@@ -6,9 +6,10 @@ setwd("C:/Users/scstepha/Documents/Forschung/Wildfire") #enter working directory
 getwd()
 #Working directory Structure
   #Working Directory: Wildfire
-    #Folder: Raw_Data 
-      #contains "Artes-Vivancos_San-Miguel_2018" [do not write in this folder]
-    #Folder: Data
+    #Folder: Raw_Data [do not write in this folder when processing data]
+      #contains "Source/Artes-Vivancos_San-Miguel_2018"
+      #contains downloaded data
+    #Folder: Processed_Data [used to work with data]
 
 # Downloaded bulk data of wild fire-----
 
@@ -17,7 +18,7 @@ library(tidyverse)
 
 # Read a text file
 
-Wild_fire<-read.delim("Raw_Data/Artes-Vivancos_San-Miguel_2018/datasets/ESRI-GIS_GWIS_wildfire.tab", header = FALSE, sep = "\t")
+Wild_fire<-read.delim("Raw_Data/Source/Artes-Vivancos_San-Miguel_2018/datasets/ESRI-GIS_GWIS_wildfire.tab", header = FALSE, sep = "\t")
 #Wild_fire<-read.delim("C:/Users/guptasu.D/Downloads/Artes-Vivancos_San-Miguel_2018/datasets/ESRI-GIS_GWIS_wildfire.tab", header = FALSE, sep = "\t")
 
 # Extracted the rows that contain URLs
@@ -38,7 +39,7 @@ urls<-Final_urls
 
 #Define URL folder where to save the data (destination)
 
-data.folder = "./Data/"
+data.folder = "./Raw_Data/"
 #data.folder = "E:/Wild_fire_project/"
 
 #Get file name from url, with file extention
