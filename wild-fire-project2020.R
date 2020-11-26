@@ -38,7 +38,7 @@ urls<-Final_urls
 
 #Define URL folder where to save the data (destination)
 
-data.folder = "./Data"
+data.folder = "./Data/"
 #data.folder = "E:/Wild_fire_project/"
 
 #Get file name from url, with file extention
