@@ -1,6 +1,14 @@
 #Wild Fire Project 2020                                                 #
 #Hacking for Social Sciences - An Applied Guide to Programming with Data#
 
+#Set working directory
+setwd("C:/Users/scstepha/Documents/Forschung/Wildfire") #enter working directory here (C:/Users/scstepha/Documents/wildfire)
+getwd()
+#Working directory Structure
+  #Working Directory: Wildfire
+    #Folder: Raw_Data
+      #contains "Artes-Vivancos_San-Miguel_2018"
+    #Folder: Data
 
 # Downloaded bulk data of wild fire-----
 
@@ -8,7 +16,8 @@ library(data.table)
 
 # Read a text file
 
-Wild_fire<-read.delim("C:/Users/guptasu.D/Downloads/Artes-Vivancos_San-Miguel_2018/datasets/ESRI-GIS_GWIS_wildfire.tab", header = FALSE, sep = "\t")
+Wild_fire<-read.delim("Raw_Data/Artes-Vivancos_San-Miguel_2018/datasets/ESRI-GIS_GWIS_wildfire.tab", header = FALSE, sep = "\t")
+#Wild_fire<-read.delim("C:/Users/guptasu.D/Downloads/Artes-Vivancos_San-Miguel_2018/datasets/ESRI-GIS_GWIS_wildfire.tab", header = FALSE, sep = "\t")
 
 # Extracted the rows that contain URLs
 
@@ -28,7 +37,8 @@ urls<-Final_urls
 
 #Define URL folder where to save the data (destination)
 
-data.folder = "E:/Wild_fire_project/"
+data.folder = "Data"
+#data.folder = "E:/Wild_fire_project/"
 
 #Get file name from url, with file extention
 
