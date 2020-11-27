@@ -66,17 +66,46 @@ for(i in seq_along(urls)){
 
 tmpdir_R <- tempdir()
 
+
 ##Read data into R
 #Unzip downloaded data
-  unzip("./Raw_Data/MODIS_BA_GLOBAL_1_1_2002.zip", exdir = tmpdir_R )
+#  unzip("./Raw_Data/MODIS_BA_GLOBAL_1_1_2002.zip", exdir = tmpdir_R )
 #Untar downloaded data (use the next two lines if you want to untar to your disk)
   #untar(tarfile = file.path(tempd1, "/MODIS_BA_GLOBAL_1_1_2002.tar"), exdir = "./Raw_Data/Extracted/")
   #testdatashp <- readOGR(dsn = "./Raw_Data/Extracted", "MODIS_BA_GLOBAL_1_1_2001") 
-  untar(tarfile = file.path(tempd1, "/MODIS_BA_GLOBAL_1_1_2002.tar"), exdir = tmpdir_R)
-  testdatashp <- readOGR(dsn = tmpdir_R, "MODIS_BA_GLOBAL_1_1_2002") #path, filename (here identical)
+#  untar(tarfile = file.path(tempdir_R, "/MODIS_BA_GLOBAL_1_1_2002.tar"), exdir = tmpdir_R)
+#  testdatashp <- readOGR(dsn = tmpdir_R, "MODIS_BA_GLOBAL_1_1_2002") #path, filename (here identical)
+#  unlink(tmpdir_R) #deletes tempfile. Does that work?
+
+  ##Read data into R
+  #Unzip downloaded data
+  for(z in fname){
+    #Unzip downloaded data
+      (zipfile<-str_c(file.path("./Raw_Data//"),z,".zip"))
+      unzip(zipfile, exdir = tmpdir_R)
+    #Untar downloaded data (use the next two lines if you want to untar to your disk)
+      #untar(tarfile = file.path(tempd1, "/",z,".tar"), exdir = "./Raw_Data/Extracted/")
+      #testdatashp <- readOGR(dsn = "./Raw_Data/Extracted", "MODIS_BA_GLOBAL_1_1_2001") 
+      (tarfile<-str_c(file.path(tmpdir_R),"\\",z,".tar"))
+      untar(tarfile = tarfile, exdir = tmpdir_R)
+    #Read into R
+      assign(paste(z,"_shp",sep = ""),
+             readOGR(dsn = tmpdir_R, z)) #path, filename (here identical))    
+  }
+  
   unlink(tmpdir_R) #deletes tempfile. Does that work?
 
+    
+  
 
-
-
-
+    #Unzip downloaded data
+    (zipfile<-str_c(file.path("./Raw_Data//"),"MODIS_BA_GLOBAL_1_1_2001",".zip"))
+    unzip(zipfile, exdir = tmpdir_R)
+    #Untar downloaded data (use the next two lines if you want to untar to your disk)
+    #untar(tarfile = file.path(tempd1, "/",z,".tar"), exdir = "./Raw_Data/Extracted/")
+    #testdatashp <- readOGR(dsn = "./Raw_Data/Extracted", "MODIS_BA_GLOBAL_1_1_2001") 
+    (tarfile<-str_c(file.path(tmpdir_R),"\\","MODIS_BA_GLOBAL_1_1_2001",".tar"))
+    untar(tarfile = tarfile, exdir = tmpdir_R)
+    #Read into R
+    assign(paste(z,"_shp",sep = ""),
+           readOGR(dsn = tmpdir_R, "MODIS_BA_GLOBAL_1_1_2001")) #path, filename (here identical))    
