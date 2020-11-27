@@ -67,7 +67,7 @@ for(i in seq_along(urls)){
 tmpdir_R <- tempdir()
 
 ##Read data into R
-  #enter years here for which you want to load monthly shapefiles into R
+  #enter years and months here for which you want to load monthly shapefiles into R
   from_s <-2015
   to_s   <-2017
   months_s<-c("6_","7_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
