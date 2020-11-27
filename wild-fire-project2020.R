@@ -68,15 +68,17 @@ tmpdir_R <- tempdir()
 
 ##Read data into R
   #enter years here for which you want to load monthly shapefiles into R
-  from_s <-2016
+  from_s <-2015
   to_s   <-2017
+  months_s<-c("6_","7_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
   #The following lines define a string vector to load the sample
     sampleyears<-seq.int(from_s, to_s, 1)
     sampleyears <- as.character(sampleyears) 
+    sampleym_s<-c(outer(months_s, sampleyears, FUN=paste0)) #"cross-product" of months and years
     loadsample<-fname
-    sampleyears_s = paste(sampleyears, collapse="|")
-    grepl(sampleyears_s, loadsample)
-    loadsample <- data.table(loadsample, insample=grepl(sampleyears_s, loadsample))
+    sampleym_s = paste(sampleym_s, collapse="|")
+    grepl(sampleym_s, loadsample)
+    loadsample <- data.table(loadsample, insample=grepl(sampleym_s, loadsample))
     loadsample<-loadsample %>%
         filter(insample==TRUE)
     loadsample<-loadsample$loadsample
@@ -94,7 +96,7 @@ tmpdir_R <- tempdir()
       assign(paste(z,"_shp",sep = ""),
              readOGR(dsn = tmpdir_R, z)) #path, filename (here identical))    
   }
-  unlink(tmpdir_R) #deletes tempfile. Does that work?
+    unlink(tmpdir_R) #deletes tempfile. Does that work?
 
     
   
