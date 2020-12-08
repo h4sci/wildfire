@@ -59,3 +59,31 @@ for(i in seq_along(urls)){
 ```
 
 # Processing of data
+for (i in 1:length(destfile)){unzip(destfile[i],exdir="E:/Wild_fire_project/Unzip_file")}
+
+tmpdir_R <- tempdir()
+
+##Read data into R
+  #enter years and months here for which you want to load monthly shapefiles into R
+  from_s <-2015
+  to_s   <-2017
+  months_s<-c("6_","7_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
+  #The following lines define a string vector to load the sample
+    sampleyears<-seq.int(from_s, to_s, 1)
+    sampleyears <- as.character(sampleyears) 
+    sampleym_s<-c(outer(months_s, sampleyears, FUN=paste0)) #"cross-product" of months and years
+    loadsample<-fname
+    sampleym_s = paste(sampleym_s, collapse="|")
+    grepl(sampleym_s, loadsample)
+    loadsample <- data.table(loadsample, insample=grepl(sampleym_s, loadsample))
+    loadsample<-loadsample %>%filter(insample==TRUE)
+    loadsample<-loadsample$loadsample
+    
+  
+  for(z in loadsample){ #Loop to load shapefiles into R
+    #Unzip downloaded data
+      (tarfile<-str_c(file.path("E:/Wild_fire_project/Unzip_file"),"\\",z,".tar"))
+    untar(tarfile =tarfile,files = NULL, list = FALSE, exdir = "E:/Wild_fire_project/Unzip_file/data")}
+    
+```    
+    
