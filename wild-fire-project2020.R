@@ -1,5 +1,6 @@
 #Wild Fire Project 2020                                                 #
 #Hacking for Social Sciences - An Applied Guide to Programming with Data#
+#Check
 
 #Set working directory
 setwd("C:/Users/scstepha/Documents/Forschung/Wildfire") #enter working directory here (C:/Users/scstepha/Documents/wildfire)
