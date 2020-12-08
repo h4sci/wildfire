@@ -15,6 +15,11 @@ Data\#
 ``` {r
 
 library(data.table)
+library(tidyverse)
+library(rgdal)
+library(rgeos)
+library(raster)# for metadata/attributes- vectors or rasters
+library(dplyr)
 
 # Read a text file
 
