@@ -92,12 +92,13 @@ tmpdir_R <- tempdir()
       (tarfile<-str_c(file.path("E:/Wild_fire_project/Unzip_file"),"\\",z,".tar"))
     untar(tarfile =tarfile,files = NULL, list = FALSE, exdir = "E:/Wild_fire_project/Unzip_file/data")}
     
+## read a shapefile
     
+  shp_spdf <-readOGR ("E:/Wild_fire_project/Unzip_file/data/MODIS_BA_GLOBAL_1_6_2015.shp")
+  
+  plot (shp_spdf)
     
-    
-    
-    
-   
+
     
   
 
