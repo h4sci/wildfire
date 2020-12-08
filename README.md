@@ -57,7 +57,7 @@ for(i in seq_along(urls)){
   download.file(urls[i], destfile[i], mode="wb")
 }
 ```
-
+```{r}
 # Processing of data
 for (i in 1:length(destfile)){unzip(destfile[i],exdir="E:/Wild_fire_project/Unzip_file")}
 
