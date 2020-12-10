@@ -45,7 +45,7 @@ urls<-Final_urls
 #Define URL folder where to save the data (destination)
 
 data.folder = "./Raw_Data/"
-data.folder = "E:/Wild_fire_project/Unzip_file/"
+#data.folder = "E:/Wild_fire_project/Unzip_file/"
 
 #Get file name from url, with file extention
 
@@ -67,7 +67,7 @@ for(i in seq_along(urls)){
 # Processing of data--------
 
 
-for (i in 1:length(destfil.e)){unzip(destfile[i],exdir="E:/Wild_fire_project/Unzip_file")}
+#for (i in 1:length(destfil.e)){unzip(destfile[i],exdir="E:/Wild_fire_project/Unzip_file")}
 
 tmpdir_R <- tempdir()
 
@@ -88,10 +88,20 @@ tmpdir_R <- tempdir()
     loadsample<-loadsample$loadsample
     
   
-  for(z in loadsample){ #Loop to load shapefiles into R
-    #Unzip downloaded data
-      (tarfile<-str_c(file.path("E:/Wild_fire_project/Unzip_file"),"\\",z,".tar"))
-    untar(tarfile =tarfile,files = NULL, list = FALSE, exdir = "E:/Wild_fire_project/Unzip_file/data")}
+    for(z in loadsample){ #Loop to load shapefiles into R
+      #Unzip downloaded data
+      (zipfile<-str_c(file.path("./Raw_Data//"),z,".zip"))
+      unzip(zipfile, exdir = tmpdir_R)
+      #Untar downloaded data (use/modify the next two lines if you want to untar to your disk)
+      #untar(tarfile = file.path(tempd1, "/",z,".tar"), exdir = "./Raw_Data/Extracted/")
+      #testdatashp <- readOGR(dsn = "./Raw_Data/Extracted", "MODIS_BA_GLOBAL_1_1_2001") 
+      (tarfile<-str_c(file.path(tmpdir_R),"\\",z,".tar"))
+      untar(tarfile = tarfile, exdir = tmpdir_R)
+      #Read into R
+      assign(paste(z,"_shp",sep = ""),
+             readOGR(dsn = tmpdir_R, z)) #path, filename (here identical))    
+    }
+    unlink(tmpdir_R) #deletes tempfile. Does that work?
     
 ## read a shapefile
     
