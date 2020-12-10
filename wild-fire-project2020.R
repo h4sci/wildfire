@@ -4,7 +4,7 @@
 
 #Set working directory
 #setwd("C:/Users/scstepha/Documents/Forschung/Wildfire") #enter working directory here (C:/Users/scstepha/Documents/wildfire)
-    #by creating an R-project we can avoid setting the directory.
+    #by creating an R-project we can avoid setting the directory
 getwd() 
 
 #Working directory Structure
@@ -46,7 +46,7 @@ urls<-Final_urls
 
 #Define URL folder where to save the data (destination)
 
-data.folder = "Raw_Data/"
+data.folder = "./Raw_Data/"  #evtl. mit tab Raw_Data/ auswählen
 #data.folder = "E:/Wild_fire_project/Unzip_file/"
 
 #Get file name from url, with file extention
@@ -92,7 +92,7 @@ tmpdir_R <- tempdir()
   
     for(z in loadsample){ #Loop to load shapefiles into R
       #Unzip downloaded data
-      (zipfile<-str_c(file.path("Raw_Data/"),z,".zip"))
+      (zipfile<-str_c(file.path("./Raw_Data//"),z,".zip"))
       unzip(zipfile, exdir = tmpdir_R)
       #Untar downloaded data (use/modify the next two lines if you want to untar to your disk)
       #untar(tarfile = file.path(tempd1, "/",z,".tar"), exdir = "./Raw_Data/Extracted/")
