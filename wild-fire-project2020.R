@@ -105,6 +105,7 @@ tmpdir_R <- tempdir()
     }
     unlink(tmpdir_R) #deletes tempfile. Does that work?
     
+plot(MODIS_BA_GLOBAL_1_6_2015_shp)
 ## read a shapefile
     
   shp_spdf <-readOGR ("E:/Wild_fire_project/Unzip_file/data/MODIS_BA_GLOBAL_1_6_2015.shp")
