@@ -116,7 +116,7 @@ tmpdir_R <- tempdir()
 
 #Database: Unzip
     (unzip("./Raw_Data/MODIS_GWIS_Active_FireEvents.zip",exdir="./Raw_Data/Extracted"))
-    (unzip("./Raw_Data/MODIS_GWIS_Active_FireEvents.zip",exdir="./Raw_Data/Extracted"))
+    (unzip("./Raw_Data/MODIS_GWIS_Final_FireEvents.zip",exdir="./Raw_Data/Extracted"))
     
 plot(MODIS_BA_GLOBAL_1_6_2015_shp)
 ## read a shapefile
