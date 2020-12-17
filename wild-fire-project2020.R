@@ -22,7 +22,7 @@ library(rgdal)
 library(rgeos)
 library(raster)# for metadata/attributes- vectors or rasters
 library(dplyr)
-
+library(dbplyr)
 # Read a text file
 
 Wild_fire<-read.delim("Raw_Data/Source/Artes-Vivancos_San-Miguel_2018/datasets/ESRI-GIS_GWIS_wildfire.tab", header = FALSE, sep = "\t")
@@ -72,8 +72,8 @@ for(i in seq_along(urls)){
 urldatabase_f="http://hs.pangaea.de/Maps/MCD64A1_burnt-areas/MODIS_GWIS_Final_FireEvents.zip" #final events
 urldatabase_a="http://hs.pangaea.de/Maps/MCD64A1_burnt-areas/MODIS_GWIS_Active_FireEvents.zip" #active areas
 
-download.file(urldatabase_f, "./Raw_Data/MODIS_GWIS_Final_FireEvents", mode="wb")
-download.file(urldatabase_a, "./Raw_Data/MODIS_GWIS_Active_FireEvents", mode="wb")
+download.file(urldatabase_f, "E:/Wild_fire_project/Unzip_file/MODIS_GWIS_Final_FireEvents", mode="wb")
+download.file(urldatabase_a, "E:/Wild_fire_project/Unzip_file/MODIS_GWIS_Active_FireEvents.zip", mode="wb")
 
 # Processing of data--------
 
@@ -115,7 +115,7 @@ tmpdir_R <- tempdir()
     unlink(tmpdir_R) #deletes tempfile. Does that work?
 
 #Database: Unzip
-    (unzip("./Raw_Data/MODIS_GWIS_Active_FireEvents.zip",exdir="./Raw_Data/Extracted"))
+    (unzip("E:/Wild_fire_project/Unzip_file/MODIS_GWIS_Final_FireEvents/MODIS_GWIS_Active_FireEvents.zip",exdir="./Raw_Data/Extracted"))
     (unzip("./Raw_Data/MODIS_GWIS_Active_FireEvents.zip",exdir="./Raw_Data/Extracted"))
     
 plot(MODIS_BA_GLOBAL_1_6_2015_shp)
