@@ -22,6 +22,7 @@ library(rgdal)
 library(rgeos)
 library(raster)# for metadata/attributes- vectors or rasters
 library(dplyr)
+library(dbplyr)
 
 # Read a text file
 
