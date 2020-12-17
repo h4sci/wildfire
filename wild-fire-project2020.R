@@ -66,6 +66,15 @@ for(i in seq_along(urls)){
   download.file(urls[i], destfile[i], mode="wb")
 }
 
+
+###
+#Download the database
+urldatabase_f="http://hs.pangaea.de/Maps/MCD64A1_burnt-areas/MODIS_GWIS_Final_FireEvents.zip" #final events
+urldatabase_a="http://hs.pangaea.de/Maps/MCD64A1_burnt-areas/MODIS_GWIS_Active_FireEvents.zip" #active areas
+
+download.file(urldatabase_f, "./Raw_Data/MODIS_GWIS_Final_FireEvents", mode="wb")
+download.file(urldatabase_a, "./Raw_Data/MODIS_GWIS_Active_FireEvents", mode="wb")
+
 # Processing of data--------
 
 
@@ -104,7 +113,10 @@ tmpdir_R <- tempdir()
              readOGR(dsn = tmpdir_R, z)) #path, filename (here identical))    
     }
     unlink(tmpdir_R) #deletes tempfile. Does that work?
+
+
     
+        
 plot(MODIS_BA_GLOBAL_1_6_2015_shp)
 ## read a shapefile
     
@@ -113,6 +125,8 @@ plot(MODIS_BA_GLOBAL_1_6_2015_shp)
   plot (shp_spdf)
     
 
+
+  
     
   
 
