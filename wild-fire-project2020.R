@@ -66,11 +66,12 @@ for(i in seq_along(urls)){
 
 tmpdir_R <- tempdir()
 
-##Read data into R
+# Function to read data into R
+LoadData <- function(from_s, to_s, months_s){
   #enter years and months here for which you want to load monthly shapefiles into R
-  from_s <-2015
-  to_s   <-2017
-  months_s<-c("6_","7_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
+  #from_s <-2015
+  #to_s   <-2017
+  #months_s<-c("6_", "7_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
   #The following lines define a string vector to load the sample
     sampleyears<-seq.int(from_s, to_s, 1)
     sampleyears <- as.character(sampleyears) 
@@ -97,7 +98,9 @@ tmpdir_R <- tempdir()
              readOGR(dsn = tmpdir_R, z)) #path, filename (here identical))    
   }
     unlink(tmpdir_R) #deletes tempfile. Does that work?
-
+}
     
-  
+
+# Example for loading the data:
+LoadData(from_s = 2015, to_s = 2017, months_s = c("6_", "7_"))  
 
