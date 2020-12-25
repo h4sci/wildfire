@@ -5,6 +5,8 @@
 #Set working directory
 #setwd("C:/Users/scstepha/Documents/Forschung/Wildfire") #enter working directory here (C:/Users/scstepha/Documents/wildfire)
     #by creating an R-project we can avoid setting the directory
+
+setwd("E:/Wild_fire_project/Unzip_file")
 getwd() 
 
 #Working directory Structure
@@ -23,7 +25,10 @@ library(rgeos)
 library(raster)# for metadata/attributes- vectors or rasters
 library(dplyr)
 library(dbplyr)
-
+library(ggplot2)
+library(sf)
+library(raster)
+library(rgeos)
 # Read a text file
 
 Wild_fire<-read.delim("Raw_Data/Source/Artes-Vivancos_San-Miguel_2018/datasets/ESRI-GIS_GWIS_wildfire.tab", header = FALSE, sep = "\t")
@@ -73,8 +78,8 @@ for(i in seq_along(urls)){
 urldatabase_f="http://hs.pangaea.de/Maps/MCD64A1_burnt-areas/MODIS_GWIS_Final_FireEvents.zip" #final events
 urldatabase_a="http://hs.pangaea.de/Maps/MCD64A1_burnt-areas/MODIS_GWIS_Active_FireEvents.zip" #active areas
 
-download.file(urldatabase_f, "E:/Wild_fire_project/Unzip_file/MODIS_GWIS_Final_FireEvents", mode="wb")
-download.file(urldatabase_a, "E:/Wild_fire_project/Unzip_file/MODIS_GWIS_Active_FireEvents.zip", mode="wb")
+download.file(urldatabase_f, "Raw_Data//MODIS_GWIS_Final_FireEvents.zip", mode="wb")
+download.file(urldatabase_a, "Raw_Data/MODIS_GWIS_Active_FireEvents.zip", mode="wb")
 
 # Processing of data--------
 
@@ -100,37 +105,59 @@ tmpdir_R <- tempdir()
     loadsample<-loadsample$loadsample
     
   
-    for(z in loadsample){ #Loop to load shapefiles into R
+   # for(z in loadsample){ #Loop to load shapefiles into R
       #Unzip downloaded data
-      (zipfile<-str_c(file.path("./Raw_Data//"),z,".zip"))
-      unzip(zipfile, exdir = tmpdir_R)
+      #(zipfile<-str_c(file.path("./Raw_Data//"),z,".zip"))
+      #unzip(zipfile, exdir = tmpdir_R)
       #Untar downloaded data (use/modify the next two lines if you want to untar to your disk)
       #untar(tarfile = file.path(tempd1, "/",z,".tar"), exdir = "./Raw_Data/Extracted/")
       #testdatashp <- readOGR(dsn = "./Raw_Data/Extracted", "MODIS_BA_GLOBAL_1_1_2001") 
-      (tarfile<-str_c(file.path(tmpdir_R),"\\",z,".tar"))
-      untar(tarfile = tarfile, exdir = tmpdir_R)
+      #(tarfile<-str_c(file.path(tmpdir_R),"\\",z,".tar"))
+      #untar(tarfile = tarfile, exdir = tmpdir_R)
       #Read into R
-      assign(paste(z,"_shp",sep = ""),
-             readOGR(dsn = tmpdir_R, z)) #path, filename (here identical))    
-    }
-    unlink(tmpdir_R) #deletes tempfile. Does that work?
+      #assign(paste(z,"_shp",sep = ""),
+             #readOGR(dsn = tmpdir_R, z)) #path, filename (here identical))    
+    #}
+    #unlink(tmpdir_R) #deletes tempfile. Does that work?
+    
+    
+    for(z in loadsample){ #Loop to load shapefiles into R
+      #Unzip downloaded data
+      (tarfile<-str_c(file.path("./Raw_Data"),"\\",z,".tar"))
+      untar(tarfile =tarfile,files = NULL, list = FALSE, exdir = "./Raw_Data/Extracted/")}
 
 #Database: Unzip
 
 
-    (unzip("./Raw_Data/MODIS_GWIS_Active_FireEvents.zip",exdir="./Raw_Data/Extracted"))
-    (unzip("./Raw_Data/MODIS_GWIS_Final_FireEvents.zip",exdir="./Raw_Data/Extracted"))
+(unzip("./Raw_Data/MODIS_GWIS_Active_FireEvents.zip",exdir="./Raw_Data/Extracted"))
+(unzip("./Raw_Data/MODIS_GWIS_Final_FireEvents.zip",exdir="./Raw_Data/Extracted"))
 
-plot(MODIS_BA_GLOBAL_1_6_2015_shp)
 ## read a shapefile
     
-  shp_spdf <-readOGR ("E:/Wild_fire_project/Unzip_file/data/MODIS_BA_GLOBAL_1_6_2015.shp")
+shp_spdf <-readOGR ("./Raw_Data/Extracted/MODIS_BA_GLOBAL_1_6_2015.shp")
   
-  plot (shp_spdf)
-    
-
-
-  
-    
+plot (shp_spdf)
   
 
+Aus_data<- "http://biogeo.ucdavis.edu/data/diva/adm/AUS_adm.zip"  
+
+Aus_download<- download.file(Aus_data, "./Raw_Data/Extracted/Aus_data.zip", mode="wb")
+
+(unzip("./Raw_Data/Extracted/Aus_data.zip",exdir="./Raw_Data/Extracted"))
+
+shp_Aus <-readOGR ("./Raw_Data/Extracted/AUS_adm0.shp")
+
+plot (shp_Aus)
+
+st_crs(shp_Aus)==st_crs(shp_spdf)
+
+
+for(z in loadsample){ #Loop to load shapefiles into R
+  #Unzip downloaded data
+  (shapefiles<-str_c(file.path("./Raw_Data"),"\\",z,".shp"))}
+
+hh1<- clip_shp(shp_spdf, shp_Aus)
+
+hh1
+
+plot(hh1, col="khaki", bg="azure2")
