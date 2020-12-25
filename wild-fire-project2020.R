@@ -128,20 +128,8 @@ LoadData <- function(from_s, to_s, months_s){
       (tarfile<-str_c(file.path("./Raw_Data"),"\\",z,".tar"))
       untar(tarfile =tarfile,files = NULL, list = FALSE, exdir = "./Raw_Data/Extracted/")}
 
-      assign(paste(z,"_shp",sep = ""),
-             readOGR(dsn = tmpdir_R, z)) #path, filename (here identical))    
-    }
-    unlink(tmpdir_R) #deletes tempfile. Does that work?
-
-
-
-# Example for loading the data:
-LoadData(from_s = 2015, to_s = 2017, months_s = c("6_", "7_"))
-    
-
-
-(unzip("./Raw_Data/MODIS_GWIS_Active_FireEvents.zip",exdir="./Raw_Data/Extracted"))
-(unzip("./Raw_Data/MODIS_GWIS_Final_FireEvents.zip",exdir="./Raw_Data/Extracted"))
+      
+  
 
 #Database: Unzip
     (unzip("./Raw_Data/MODIS_GWIS_Active_FireEvents.zip",exdir="./Raw_Data/Extracted"))
@@ -155,6 +143,8 @@ shp_spdf <-readOGR ("./Raw_Data/Extracted/MODIS_BA_GLOBAL_1_6_2015.shp")
 plot (shp_spdf)
   
 
+## Download Australia shapefiles 
+
 Aus_data<- "http://biogeo.ucdavis.edu/data/diva/adm/AUS_adm.zip"  
 
 Aus_download<- download.file(Aus_data, "./Raw_Data/Extracted/Aus_data.zip", mode="wb")
@@ -167,13 +157,9 @@ plot (shp_Aus)
 
 st_crs(shp_Aus)==st_crs(shp_spdf)
 
+## Cropped shapefiles
 
-for(z in loadsample){ #Loop to load shapefiles into R
-  #Unzip downloaded data
-  (shapefiles<-str_c(file.path("./Raw_Data"),"\\",z,".shp"))}
+hh1<- gIntersection(shp_spdf, shp_Aus)
 
-hh1<- clip_shp(shp_spdf, shp_Aus)
-
-hh1
 
 plot(hh1, col="khaki", bg="azure2")
