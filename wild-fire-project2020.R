@@ -88,11 +88,12 @@ download.file(urldatabase_a, "Raw_Data/MODIS_GWIS_Active_FireEvents.zip", mode="
 
 tmpdir_R <- tempdir()
 
-##Read data into R
+##Function to read data into R
+LoadData <- function(from_s, to_s, months_s){
   #enter years and months here for which you want to load monthly shapefiles into R
-  from_s <-2015
-  to_s   <-2017
-  months_s<-c("6_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
+  #from_s <-2015
+  #to_s   <-2017
+  #months_s<-c("6_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
   #The following lines define a string vector to load the sample
     sampleyears<-seq.int(from_s, to_s, 1)
     sampleyears <- as.character(sampleyears) 
@@ -115,6 +116,7 @@ tmpdir_R <- tempdir()
       #(tarfile<-str_c(file.path(tmpdir_R),"\\",z,".tar"))
       #untar(tarfile = tarfile, exdir = tmpdir_R)
       #Read into R
+
       #assign(paste(z,"_shp",sep = ""),
              #readOGR(dsn = tmpdir_R, z)) #path, filename (here identical))    
     #}
@@ -126,11 +128,25 @@ tmpdir_R <- tempdir()
       (tarfile<-str_c(file.path("./Raw_Data"),"\\",z,".tar"))
       untar(tarfile =tarfile,files = NULL, list = FALSE, exdir = "./Raw_Data/Extracted/")}
 
-#Database: Unzip
+      assign(paste(z,"_shp",sep = ""),
+             readOGR(dsn = tmpdir_R, z)) #path, filename (here identical))    
+    }
+    unlink(tmpdir_R) #deletes tempfile. Does that work?
+
+
+
+# Example for loading the data:
+LoadData(from_s = 2015, to_s = 2017, months_s = c("6_", "7_"))
+    
 
 
 (unzip("./Raw_Data/MODIS_GWIS_Active_FireEvents.zip",exdir="./Raw_Data/Extracted"))
 (unzip("./Raw_Data/MODIS_GWIS_Final_FireEvents.zip",exdir="./Raw_Data/Extracted"))
+
+#Database: Unzip
+    (unzip("./Raw_Data/MODIS_GWIS_Active_FireEvents.zip",exdir="./Raw_Data/Extracted"))
+    (unzip("./Raw_Data/MODIS_GWIS_Final_FireEvents.zip",exdir="./Raw_Data/Extracted"))
+
 
 ## read a shapefile
     
