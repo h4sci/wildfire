@@ -145,6 +145,10 @@ sub_Australia <- crop(shp_spdf, extent(113.338953078,153.569469029, -43.63459726
 
 plot(sub_Australia)
 
+## Write shapefile
+
+Aus1<- shapefile(sub_Australia,"./Raw_Data/data/Austest1.shp" )
+
 ## Crop multiple shapefiles
 
 ipath <- "./Raw_Data/data/"
@@ -180,6 +184,5 @@ for (f in 1:length(ff)){
 Aus1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2015.shp")
 
 plot(Aus1)
-
 
 
