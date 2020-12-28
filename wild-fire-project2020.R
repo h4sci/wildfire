@@ -141,7 +141,7 @@ plot (shp_spdf)
 
 ## Cropped shapefiles
 
-sub_Australia <- crop(shp_spdf, extent(113.338953078,153.569469029, -43.6345972634, -10.6681857235),filename="./Raw_Data/data"  )
+sub_Australia <- crop(shp_spdf, extent(113.338953078,153.569469029, -43.6345972634, -10.6681857235))
 
 plot(sub_Australia)
 
@@ -180,4 +180,6 @@ for (f in 1:length(ff)){
 Aus1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2015.shp")
 
 plot(Aus1)
+
+
 
