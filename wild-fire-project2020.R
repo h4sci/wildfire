@@ -28,7 +28,6 @@ library(dbplyr)
 library(ggplot2)
 library(sf)
 library(raster)
-library(rgeos)
 # Read a text file
 
 Wild_fire<-read.delim("Raw_Data/Source/Artes-Vivancos_San-Miguel_2018/datasets/ESRI-GIS_GWIS_wildfire.tab", header = FALSE, sep = "\t")
@@ -83,29 +82,27 @@ download.file(urldatabase_a, "Raw_Data/MODIS_GWIS_Active_FireEvents.zip", mode="
 
 # Processing of data--------
 
-
-#for (i in 1:length(destfil.e)){unzip(destfile[i],exdir="E:/Wild_fire_project/Unzip_file")}
+##Unzip files
+#for (i in 1:length(destfile)){unzip(destfile[i],exdir=./Raw_Data")}
 
 tmpdir_R <- tempdir()
 
 ##Function to read data into R
-LoadData <- function(from_s, to_s, months_s){
-  #enter years and months here for which you want to load monthly shapefiles into R
-  #from_s <-2015
-  #to_s   <-2017
-  #months_s<-c("6_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
-  #The following lines define a string vector to load the sample
-    sampleyears<-seq.int(from_s, to_s, 1)
-    sampleyears <- as.character(sampleyears) 
-    sampleym_s<-c(outer(months_s, sampleyears, FUN=paste0)) #"cross-product" of months and years
-    loadsample<-fname
-    sampleym_s = paste(sampleym_s, collapse="|")
-    grepl(sampleym_s, loadsample)
-    loadsample <- data.table(loadsample, insample=grepl(sampleym_s, loadsample))
-    loadsample<-loadsample %>%filter(insample==TRUE)
-    loadsample<-loadsample$loadsample
-    
-  
+from_s <-2015
+to_s   <-2017
+months_s<-c("6_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
+#The following lines define a string vector to load the sample
+sampleyears<-seq.int(from_s, to_s, 1)
+sampleyears <- as.character(sampleyears) 
+sampleym_s<-c(outer(months_s, sampleyears, FUN=paste0)) #"cross-product" of months and years
+loadsample<-fname
+sampleym_s = paste(sampleym_s, collapse="|")
+grepl(sampleym_s, loadsample)
+loadsample <- data.table(loadsample, insample=grepl(sampleym_s, loadsample))
+loadsample<-loadsample %>%filter(insample==TRUE)
+loadsample<-loadsample$loadsample
+
+
    # for(z in loadsample){ #Loop to load shapefiles into R
       #Unzip downloaded data
       #(zipfile<-str_c(file.path("./Raw_Data//"),z,".zip"))
@@ -122,44 +119,65 @@ LoadData <- function(from_s, to_s, months_s){
     #}
     #unlink(tmpdir_R) #deletes tempfile. Does that work?
     
+##Untar files
     
     for(z in loadsample){ #Loop to load shapefiles into R
       #Unzip downloaded data
       (tarfile<-str_c(file.path("./Raw_Data"),"\\",z,".tar"))
-      untar(tarfile =tarfile,files = NULL, list = FALSE, exdir = "./Raw_Data/Extracted/")}
+      untar(tarfile =tarfile,files = NULL, list = FALSE, exdir = "./Raw_Data/data/")}
 
       
-  
 
-#Database: Unzip
-    (unzip("./Raw_Data/MODIS_GWIS_Active_FireEvents.zip",exdir="./Raw_Data/Extracted"))
-    (unzip("./Raw_Data/MODIS_GWIS_Final_FireEvents.zip",exdir="./Raw_Data/Extracted"))
-
-
+## crop single shapefile
 ## read a shapefile
     
-shp_spdf <-readOGR ("./Raw_Data/Extracted/MODIS_BA_GLOBAL_1_6_2015.shp")
+shp_spdf <-readOGR ("./Raw_Data/data/MODIS_BA_GLOBAL_1_6_2015.shp")
   
 plot (shp_spdf)
-  
 
-## Download Australia shapefiles 
-
-Aus_data<- "http://biogeo.ucdavis.edu/data/diva/adm/AUS_adm.zip"  
-
-Aus_download<- download.file(Aus_data, "./Raw_Data/Extracted/Aus_data.zip", mode="wb")
-
-(unzip("./Raw_Data/Extracted/Aus_data.zip",exdir="./Raw_Data/Extracted"))
-
-shp_Aus <-readOGR ("./Raw_Data/Extracted/AUS_adm0.shp")
-
-plot (shp_Aus)
-
-st_crs(shp_Aus)==st_crs(shp_spdf)
+## we gave here bounding box to crop Australia (please follow this website to extract the bounding box:
+#https://gist.github.com/graydon/11198540
+## We choose bounding box because when we were cropping using Australia shapefile, it was very time-consuming.   
 
 ## Cropped shapefiles
 
-hh1<- gIntersection(shp_spdf, shp_Aus)
+sub_Australia <- crop(shp_spdf, extent(113.338953078,153.569469029, -43.6345972634, -10.6681857235),filename="./Raw_Data/data"  )
+
+plot(sub_Australia)
+
+## Crop multiple shapefiles
+
+ipath <- "./Raw_Data/data/"
+opath <- "./Raw_Data/data/Aus_extract/"
+
+## extract all shapefiles from the folder
+
+ff <- list.files(ipath, pattern="\\.shp$", full.names=TRUE)
+
+stopifnot(length(ff)>0)
+
+fname.x1 <- gsub(".*/(.*)", "\\1", ff)
+
+#Get file name from url, without file extention
+
+fname1 <- gsub("(.*)\\.shp.*", "\\1", fname.x1)
+
+#define destination folder
+
+destfile1 = paste0(opath, fname.x1)
 
 
-plot(hh1, col="khaki", bg="azure2")
+for (f in 1:length(ff)){
+  
+  r <- shapefile(ff[f])
+
+  rc <- crop(r, extent(113.338953078,153.569469029, -43.6345972634, -10.6681857235))
+
+  shapefile(rc, destfile1[f], overwrite=TRUE)
+  
+}
+
+Aus1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2015.shp")
+
+plot(Aus1)
+
