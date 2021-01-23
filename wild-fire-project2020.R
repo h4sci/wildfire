@@ -133,7 +133,7 @@ loadsample<-loadsample$loadsample
     
 shp_spdf <-readOGR ("./Raw_Data/data/MODIS_BA_GLOBAL_1_6_2015.shp")
   
-plot (shp_spdf)
+plot (shp_spdf,main="Global map of wildfire Active Areas during June 2015")
 
 ## we gave here bounding box to crop Australia (please follow this website to extract the bounding box:
 #https://gist.github.com/graydon/11198540
@@ -143,7 +143,7 @@ plot (shp_spdf)
 
 sub_Australia <- crop(shp_spdf, extent(113.338953078,153.569469029, -43.6345972634, -10.6681857235))
 
-plot(sub_Australia)
+plot(sub_Australia, main="Australia WIldfire Active Areas during June 2015", col.main= "red")
 
 ## Write shapefile
 
@@ -181,16 +181,20 @@ for (f in 1:length(ff)){
   
 }
 
-
-
 Aus1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2015.shp")
 
 Aus2<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2016.shp")
 
 Aus3<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2017.shp")
 
+Aus4<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_7_2015.shp")
 
-par(mfrow= c(1,3))
+Aus5<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_7_2016.shp")
+
+Aus6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_7_2017.shp")
+
+
+par(mfrow= c(2,3))
 
 plot(Aus1, main="June2015", col.main= "red")
 
@@ -200,7 +204,19 @@ plot(Aus2, main="June2016", col.main= "red")
 
 par(new=FALSE)
 
-plot(Aus3, "June2017", col.main= "red")
+plot(Aus3, main="June2017", col.main= "red")
+
+par(new=FALSE)
+
+plot(Aus4, main="july2015", col.main= "red")
+
+par(new=FALSE)
+
+plot(Aus5, main="july2016", col.main= "red")
+
+par(new=FALSE)
+
+plot(Aus6, main="july2017", col.main= "red")
 
 
 
