@@ -1,5 +1,7 @@
 ---
 title: "Wild Fire Project 2020"
+authors: 
+date: "Stephan Schneider, Maximilian Amberg, Surya Gupta"
 output: 
   github_document:
     toc: true
@@ -9,13 +11,18 @@ output:
 
 #Hacking for Social Sciences - An Applied Guide to Programming with Data#
 
-# Downloaded bulk data of wild fire
+To read the description of the dataset, please follow this paper [A global wildfire dataset for the analysis of fire regimes and fire behaviour](https://www.nature.com/articles/s41597-019-0312-2).
+
+We used the global wildfire dataset processed by  Artés et al., 2019. The main objective of this project was:
+to learn Github. Specifically how to clone a repository, how to commit, how to work in a team using Github.
+to learn the use of R for the spatial dataset
+to find the changes in the patterns of wildfire between 2000 to 2018 for Australia. 
+
+
+## Downloaded bulk data of wild fire
 
 ```{r} 
-
 setwd("E:/Wild_fire_project/Unzip_file")
-getwd() 
-
 #Working directory Structure
   #Working Directory: Wildfire
     #Folder: Raw_Data [do not write in this folder when processing data]
@@ -137,7 +144,7 @@ loadsample<-loadsample$loadsample
     
 shp_spdf <-readOGR ("./Raw_Data/data/MODIS_BA_GLOBAL_1_6_2015.shp")
   
-plot (shp_spdf, main="Global map of wildfire during June 2015", col.main= "red")
+plot (shp_spdf, main="Global map of wildfire Active Areas during June 2015", col.main= "red")
 
 ## we gave here bounding box to crop Australia (please follow this website to extract the bounding box:
 #https://gist.github.com/graydon/11198540
@@ -147,11 +154,12 @@ plot (shp_spdf, main="Global map of wildfire during June 2015", col.main= "red")
 
 sub_Australia <- crop(shp_spdf, extent(113.338953078,153.569469029, -43.6345972634, -10.6681857235))
 
-plot(sub_Australia)
+plot(sub_Australia, main="Australia WIldfire Active Areas during June 2015")
+
 
 ## Write shapefile
 
-Aus1<- shapefile(sub_Australia,"./Raw_Data/data/Austest1.shp" )
+Aus1<- shapefile(sub_Australia,"./Raw_Data/data/Austest1.shp", overwrite=TRUE )
 
 ## Crop multiple shapefiles
 
