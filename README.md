@@ -1,9 +1,9 @@
-Wild Fire Project 2020
+
+
+Wild Fire Project 2020; Stephan Schneider, Maximilian Amberg, and Surya Gupta
 ================
 
-  #Wild Fire Project 2020
-
-#Hacking for Social Sciences - An Applied Guide to Programming with Data#
+Course name: Hacking for Social Sciences - An Applied Guide to Programming with Data 
 
 To read the description of the dataset, please follow this paper [A global wildfire dataset for the analysis of fire regimes and fire behaviour](https://www.nature.com/articles/s41597-019-0312-2).
 
