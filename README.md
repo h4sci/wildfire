@@ -8,9 +8,9 @@ Course name: Hacking for Social Sciences - An Applied Guide to Programming with 
 To read the description of the dataset, please follow this paper [A global wildfire dataset for the analysis of fire regimes and fire behaviour](https://www.nature.com/articles/s41597-019-0312-2).
 
 We used the global wildfire dataset processed by  Artés et al., 2019. The main objective of this project was:
-to learn Github. Specifically how to clone a repository, how to commit, how to work in a team using Github.
-to learn the use of R for the spatial dataset
-to find the changes in the patterns of wildfire between 2000 to 2018 for Australia. 
+a) to learn Github. Specifically how to clone a repository, how to commit, how to work in a team using Github.
+b) to learn the use of R for the spatial dataset.
+c) to find the changes in the patterns of wildfire between 2000 to 2018 for Australia. 
 
 
 ## Downloaded bulk data of wild fire
