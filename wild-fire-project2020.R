@@ -90,7 +90,7 @@ tmpdir_R <- tempdir()
 ##Function to read data into R
 from_s <-2015
 to_s   <-2017
-months_s<-c("6_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
+months_s<-c("6_", "7_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
 #The following lines define a string vector to load the sample
 sampleyears<-seq.int(from_s, to_s, 1)
 sampleyears <- as.character(sampleyears) 
@@ -181,8 +181,32 @@ for (f in 1:length(ff)){
   
 }
 
+
+
 Aus1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2015.shp")
 
-plot(Aus1)
+Aus2<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2016.shp")
+
+Aus3<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2017.shp")
+
+
+par(mfrow= c(1,3))
+
+plot(Aus1, main="June2015", col.main= "red")
+
+par(new=FALSE)
+
+plot(Aus2, main="June2016", col.main= "red")
+
+par(new=FALSE)
+
+plot(Aus3, "June2017", col.main= "red")
+
+
+
+
+
+
+
 
 
