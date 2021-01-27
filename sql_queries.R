@@ -31,6 +31,8 @@ library(dplyr)
 ## Load specific libraries
 library(DBI)
 library(RPostgres)
+library(odbc)
+library(sf)
 #library(sparklyr)
 #library(sparklyr.nested)
 #library(Rcpp)
@@ -67,15 +69,27 @@ getwd()
 # WHERE wkb_geometry ... in Australia ...
 # leaflet in the background is then overlayed
 
+## Further links
+# https://therinspark.com/extensions.html#spatial
+# https://stackoverflow.com/questions/60927929/querying-sql-server-geospatial-data-from-r
+# https://medium.com/rv-data/working-with-spatial-databases-and-r-43f37ea0d499
+# https://github.com/tidyverse/dplyr/issues/2055
+
 ## Own implementation
+# Pre-definitions
+db_name <- "gwis"
+host_name <- "localhost"
+username <- "user1"
+password <- "1"
+
 # Connect with gwis database
 con <- dbConnect(drv = RPostgres::Postgres(),
                  #RMySQL::MySQL(),   # ?
-                 dbname = "gwis",
-                 host = "localhost",         
+                 dbname = db_name,
+                 host = host_name,         
                  port = 5432,
-                 user = "user1",
-                 password = "1")  
+                 user = username,
+                 password = password)  
 #dbDisconnect(con)
 
 # First tests with limited number of elements loaded
@@ -92,12 +106,40 @@ dbListTables(con)
 # ^
 
 
+# Query
+# data <- dbGetQuery(con, 'SELECT TOP 2
+#                          ogc_fid, 
+#                          id,
+#                          initialdate,
+#                          finaldate,
+#                          geom,
+#                          geom.STGeometryType() geom_type,
+#                          geom.STSrid STSrid
+#                          FROM nasa_modis_ba.final_ba_2000')
+# rawToHex(data$geom[1])
+# 
+# mytest <- st_read(con, 
+#                   geometry_column = "geom", 
+#                   query = 
+#                     "select geometry::STGeomFromText('POLYGON ((0 0, 1.5 0, 1.5 1.5, 0 1.5, 0 0))', 0).STAsBinary() as geom union all
+#                   select geometry::Parse('CIRCULARSTRING(0 0, 1 1.10, 2 2.3246, 0 7, -3 2.3246, -1 2.1082, 0 0)').STAsBinary() as geom;")
+# 
+# plot(mytest)
+
+
+
+
+
 
 
 ### NEXT STEPS
 ## 1) Need to find out what needs to be specified after "SELECT * FROM nasa_modis_ba.final_ba_2000 ......"
 ## Several variable names: ogc_fid, id, initialdate, finaldate, and geom
 ## 2) Develop an approach loading several tables/elements (of different years) at once
+
+
+
+
 
 
 
