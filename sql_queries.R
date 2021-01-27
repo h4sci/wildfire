@@ -187,6 +187,12 @@ wkbr2<-st_as_sfc(
 )
 plot(wkbr2)
 
+ggplot() + geom_sf(data=wkbr2,colour='red') + guides(fill = guide_none()) + coord_sf(xlim = c(-81, -80), ylim = c(26, 27), expand = FALSE)
+ggplot(australia_sf) + geom_sf() +geom_sf(data=wkbr2,colour='red')+  guides(fill = guide_none()) 
+
+
+
+#dbdisconnect important?
 
 #library(broom)
 #df_boundary_aus<-tidy(geo)
