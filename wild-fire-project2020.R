@@ -88,7 +88,7 @@ download.file(urldatabase_a, "Raw_Data/MODIS_GWIS_Active_FireEvents.zip", mode="
 tmpdir_R <- tempdir()
 
 ##Function to read data into R
-from_s <-2015
+from_s <-2000
 to_s   <-2017
 months_s<-c("6_", "7_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
 #The following lines define a string vector to load the sample
@@ -143,7 +143,7 @@ plot (shp_spdf,main="Global map of wildfire Active Areas during June 2015")
 
 sub_Australia <- crop(shp_spdf, extent(113.338953078,153.569469029, -43.6345972634, -10.6681857235))
 
-plot(sub_Australia, main="Australia WIldfire Active Areas during June 2015", col.main= "red")
+plot(sub_Australia, main="Australia Wildfire Active Areas during June 2015", col.main= "red")
 
 ## Write shapefile
 
@@ -181,6 +181,7 @@ for (f in 1:length(ff)){
   
 }
 
+
 Aus1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2015.shp")
 
 Aus2<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2016.shp")
@@ -194,7 +195,7 @@ Aus5<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_7_2016.shp")
 Aus6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_7_2017.shp")
 
 
-par(mfrow= c(2,3))
+par(mfrow= c(2,4))
 
 plot(Aus1, main="June2015", col.main= "red")
 
@@ -220,7 +221,208 @@ plot(Aus6, main="july2017", col.main= "red")
 
 
 
+## Area changes from 2000 to 2008
 
+
+Aus_2001_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2001.shp")
+
+Aus_2002_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2002.shp")
+
+Aus_2003_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2003.shp")
+
+Aus_2004_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2004.shp")
+
+Aus_2005_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2005.shp")
+
+Aus_2006_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2006.shp")
+
+Aus_2007_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2007.shp")
+
+Aus_2008_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2008.shp")
+
+Aus_2009_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2009.shp")
+
+Aus_2010_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2010.shp")
+
+Aus_2011_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2011.shp")
+
+Aus_2012_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2012.shp")
+
+Aus_2013_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2013.shp")
+
+Aus_2014_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2014.shp")
+
+
+## extarct teh data
+
+Aus_2001_6$area_sqkm <- area(Aus_2001_6) / 1000000
+
+Aus_2002_6$area_sqkm <- area(Aus_2002_6) / 1000000
+
+Aus_2003_6$area_sqkm <- area(Aus_2003_6) / 1000000
+
+Aus_2004_6$area_sqkm <- area(Aus_2004_6) / 1000000
+
+Aus_2005_6$area_sqkm <- area(Aus_2005_6) / 1000000
+
+Aus_2006_6$area_sqkm <- area(Aus_2006_6) / 1000000
+
+Aus_2007_6$area_sqkm <- area(Aus_2007_6) / 1000000
+
+Aus_2008_6$area_sqkm <- area(Aus_2008_6) / 1000000
+
+Aus_2009_6$area_sqkm <- area(Aus_2009_6) / 1000000
+
+Aus_2010_6$area_sqkm <- area(Aus_2010_6) / 1000000
+
+Aus_2011_6$area_sqkm <- area(Aus_2011_6) / 1000000
+
+Aus_2012_6$area_sqkm <- area(Aus_2012_6) / 1000000
+
+Aus_2013_6$area_sqkm <- area(Aus_2013_6) / 1000000
+
+Aus_2014_6$area_sqkm <- area(Aus_2014_6) / 1000000
+
+Aus1$area_sqkm <- area(Aus1) / 1000000
+
+Aus2$area_sqkm <- area(Aus2) / 1000000
+
+Aus3$area_sqkm <- area(Aus3) / 1000000
+
+
+Aus_2001_61<- Aus_2001_6@data
+
+Aus_2002_61 <- Aus_2002_6@data
+
+Aus_2003_61 <-Aus_2003_6@data
+
+Aus_2004_61 <- Aus_2004_6@data
+
+Aus_2005_61 <- Aus_2005_6@data
+
+Aus_2006_61 <- Aus_2006_6@data
+
+Aus_2007_61 <- Aus_2007_6@data
+
+Aus_2008_61 <- Aus_2008_6@data
+
+Aus_2009_61 <- Aus_2009_6@data
+
+Aus_2010_61 <- Aus_2010_6@data
+
+Aus_2011_61<- Aus_2011_6@data
+
+Aus_2012_61<- Aus_2012_6@data
+
+Aus_2013_61 <- Aus_2013_6@data
+
+Aus_2014_61 <- Aus_2014_6@data
+
+Aus_2015_61<- Aus1@data
+
+Aus_2016_61 <- Aus2@data
+
+Aus_2017_61 <- Aus3@data
+
+
+
+Aus_2001_61_area<- Aus_2001_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2001_61_area $year<- 2001
+
+Aus_2002_61_area<- Aus_2002_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2002_61_area $year<- 2002
+
+Aus_2003_61_area<- Aus_2003_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2003_61_area $year<- 2003
+
+Aus_2004_61_area<- Aus_2004_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2004_61_area $year<- 2004
+
+Aus_2005_61_area<- Aus_2005_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2005_61_area $year<- 2005
+
+Aus_2006_61_area<- Aus_2006_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2006_61_area $year<- 2006
+
+Aus_2007_61_area<- Aus_2007_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2007_61_area $year<- 2007
+
+Aus_2008_61_area<- Aus_2008_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2008_61_area $year<- 2008
+
+Aus_2009_61_area<- Aus_2009_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2009_61_area $year<- 2009
+
+
+Aus_2010_61_area<- Aus_2010_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2010_61_area $year<- 2010
+
+Aus_2011_61_area<- Aus_2011_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2011_61_area $year<- 2011
+
+
+Aus_2012_61_area<- Aus_2012_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2012_61_area $year<- 2012
+
+Aus_2013_61_area<- Aus_2013_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2013_61_area $year<- 2013
+
+Aus_2014_61_area<- Aus_2014_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2014_61_area $year<- 2014
+
+Aus_2015_61_area<- Aus_2015_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2015_61_area $year<- 2015
+
+Aus_2016_61_area<- Aus_2016_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2016_61_area $year<- 2016
+
+
+Aus_2017_61_area<- Aus_2017_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2017_61_area $year<- 2017
+
+
+Final_dataset<- rbind(Aus_2001_61_area, Aus_2002_61_area, Aus_2003_61_area, Aus_2004_61_area, Aus_2005_61_area
+                      , Aus_2006_61_area, Aus_2007_61_area, Aus_2008_61_area, Aus_2009_61_area, Aus_2010_61_area
+                      , Aus_2011_61_area, Aus_2012_61_area, Aus_2013_61_area, Aus_2014_61_area, Aus_2015_61_area
+                      , Aus_2016_61_area, Aus_2017_61_area)
+
+p<-ggplot(data=Final_dataset, aes(x=year, y=area_sqkm)) +
+  geom_bar(stat="identity")
+p
 
 
 
