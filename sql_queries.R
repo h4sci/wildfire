@@ -99,6 +99,22 @@ rs <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.final_ba_2000 LIMIT 2")
 dbFetch(rs)     # worked out!
 rs <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.active_areas_2001 LIMIT 2")
 dbFetch(rs)    #this works for me 
+rs <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.active_areas_2001 WHERE nasa_modis_ba.active_areas_2001.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693)")
+dbout<-dbFetch(rs)  
+
+dbout_sfc<-st_as_sfc(
+  dbout$wkb_geometry,
+  EWKB = TRUE,
+  spatialite = FALSE,
+  pureR = FALSE,
+  crs = NA_crs_
+)
+plot(dbout_sfc)
+
+ggplot() + geom_sf(data=dbout_sfc,colour='red') + guides(fill = guide_none()) 
+ggplot(australia_sf) + geom_sf() +geom_sf(data=dbout_sfc,colour='red')+  guides(fill = guide_none()) 
+
+
 
 # Other useful commands
 dbListTables(con)
@@ -219,6 +235,9 @@ ggplot(australia_sf) + geom_sf() + guides(fill = guide_none())
 
 rs <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.active_areas_2001 LIMIT 2")
 wkbr<-dbFetch(rs)    #this works for me 
+class(wkbr) #
+class(wkbr$wkb_geometry) #
+
 
 wkbr2<-st_as_sfc(
   wkbr$wkb_geometry,
@@ -239,3 +258,8 @@ ggplot(australia_sf) + geom_sf() +geom_sf(data=wkbr2,colour='red')+  guides(fill
 #library(broom)
 #df_boundary_aus<-tidy(geo)
 
+
+#Boundary Box
+head(australia_sf,3)
+bbox_list <- lapply(st_geometry(australia_sf), st_bbox)
+View(bbox_list)
