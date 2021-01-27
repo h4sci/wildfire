@@ -166,18 +166,20 @@ dbListTables(con)
 
 ## 1. Alternative: Using sprint() in a loop to load all years at once 
 # Test outside of the loop
-i <- 2000
-rs <- dbSendQuery(con, sprintf("SELECT * FROM nasa_modis_ba.final_ba_%.f LIMIT 1", i))
-dbFetch(rs)      # works!
+i <- 2001
 
+rs2 <- dbSendQuery(con, sprintf("SELECT * FROM nasa_modis_ba.active_areas_%.f LIMIT 1", i))
+dbFetch(rs2)      # works!
+
+years <- 2001:2018
 # Create an empty output list with the correct length
-rs <- vector("list", length(2000:2018))
+rs2 <- vector("list", length(2001:2018))
 # Actual loop
-for (i in 2000:2018){
+for (i in 1:18){
   # Store query in year/iteration i
-  rs[[i]] <- dbSendQuery(con, sprintf("SELECT * FROM nasa_modis_ba.final_ba_%.f LIMIT 1", i))
+  rs2[[i]] <- dbSendQuery(con, sprintf("SELECT * FROM nasa_modis_ba.active_areas_%.f WHERE nasa_modis_ba.active_areas_%.f.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693)", years[i])) 
   # Render this element to see whether it worked out
-  dbFetch(rs[[i]])     # has not worked out so far!
+  #dbFetch(rs2[[i]])     # has not worked out so far!
 }
 #dbFetch(rs[[1]])
 
@@ -185,6 +187,7 @@ for (i in 2000:2018){
 
 
 ## 2. Alternative: Use "UNION ALL" in dbSendQuery()
+  #statt sprintf alle Tabellen angeben, über die die Query laufen soll
 
 
 
