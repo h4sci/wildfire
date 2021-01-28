@@ -393,6 +393,42 @@ plot(Aus6, main="july2017", col.main= "red")
 
 
 ``` r
+
+## Area changes from 2000 to 2008
+
+##loaded the shapefiles
+
+Aus_2001_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2001.shp")
+
+Aus_2002_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2002.shp")
+
+Aus_2003_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2003.shp")
+
+Aus_2004_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2004.shp")
+
+Aus_2005_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2005.shp")
+
+Aus_2006_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2006.shp")
+
+Aus_2007_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2007.shp")
+
+Aus_2008_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2008.shp")
+
+Aus_2009_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2009.shp")
+
+Aus_2010_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2010.shp")
+
+Aus_2011_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2011.shp")
+
+Aus_2012_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2012.shp")
+
+Aus_2013_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2013.shp")
+
+Aus_2014_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2014.shp")
+
+
+## calculated the area of shapefiles in square Km
+
 Aus_2001_6$area_sqkm <- area(Aus_2001_6) / 1000000
 
 Aus_2002_6$area_sqkm <- area(Aus_2002_6) / 1000000
@@ -427,6 +463,8 @@ Aus2$area_sqkm <- area(Aus2) / 1000000
 
 Aus3$area_sqkm <- area(Aus3) / 1000000
 
+
+## extracted the data from the shapefiles
 
 Aus_2001_61<- Aus_2001_6@data
 
@@ -463,6 +501,7 @@ Aus_2016_61 <- Aus2@data
 Aus_2017_61 <- Aus3@data
 
 
+## Total area of the shapefile
 
 Aus_2001_61_area<- Aus_2001_61 %>%
   summarize_if(is.numeric, sum, na.rm=TRUE)
