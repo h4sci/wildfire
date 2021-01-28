@@ -194,7 +194,6 @@ destfile1 = paste0(opath, fname.x1)
 #}
 
 
-
 Aus1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2015.shp")
 
 Aus2<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2016.shp")
@@ -210,7 +209,9 @@ Aus6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_7_2017.shp")
 
 par(mfrow= c(2,3))
 
-plot(Aus1, main="June2015", col.main= "red")
+par(new=FALSE)
+
+plot(Aus1, main="June2016", col.main= "red")
 
 par(new=FALSE)
 
@@ -432,9 +433,14 @@ Final_dataset<- rbind(Aus_2001_61_area, Aus_2002_61_area, Aus_2003_61_area, Aus_
                       , Aus_2016_61_area, Aus_2017_61_area)
 
 p<-ggplot(data=Final_dataset, aes(x=year, y=area_sqkm)) +
-  geom_bar(stat="identity")
+  geom_bar(stat="identity")+ 
+  labs(title="Active wild fire areas in Australia from 2001-2017 in June", y= "Area [sqkm]", x = "Year [-]") + 
+  theme_minimal()+theme(axis.text=element_text(size=10, color = "black"),
+                                       axis.title=element_text(size=12,face="bold"))+
+  theme(plot.title = element_text(color = "brown"))+theme(panel.border = element_rect(colour = "black", fill=NA, size=1))+
+  scale_x_continuous(limits = c(2000,2018), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0,120000), expand = c(0, 0)) 
 p
-
 
 
 
