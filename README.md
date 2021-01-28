@@ -591,6 +591,12 @@ Aus_2017_61_area<- Aus_2017_61 %>%
 
 Aus_2017_61_area $year<- 2017
 
+Final_dataset<- rbind(Aus_2001_61_area, Aus_2002_61_area, Aus_2003_61_area, Aus_2004_61_area, Aus_2005_61_area
+                      , Aus_2006_61_area, Aus_2007_61_area, Aus_2008_61_area, Aus_2009_61_area, Aus_2010_61_area
+                      , Aus_2011_61_area, Aus_2012_61_area, Aus_2013_61_area, Aus_2014_61_area, Aus_2015_61_area
+                      , Aus_2016_61_area, Aus_2017_61_area)
+
+
 p<-ggplot(data=Final_dataset, aes(x=year, y=area_sqkm)) +
   geom_bar(stat="identity")+ 
   labs(title="Active wild fire areas in Australia from 2001-2017 in June", y= "Area [sqkm]", x = "Year [-]") + 
