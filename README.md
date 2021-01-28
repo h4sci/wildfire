@@ -390,3 +390,178 @@ plot(Aus6, main="july2017", col.main= "red")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-1-3.png)<!-- -->
+
+
+``` r
+Aus_2001_6$area_sqkm <- area(Aus_2001_6) / 1000000
+
+Aus_2002_6$area_sqkm <- area(Aus_2002_6) / 1000000
+
+Aus_2003_6$area_sqkm <- area(Aus_2003_6) / 1000000
+
+Aus_2004_6$area_sqkm <- area(Aus_2004_6) / 1000000
+
+Aus_2005_6$area_sqkm <- area(Aus_2005_6) / 1000000
+
+Aus_2006_6$area_sqkm <- area(Aus_2006_6) / 1000000
+
+Aus_2007_6$area_sqkm <- area(Aus_2007_6) / 1000000
+
+Aus_2008_6$area_sqkm <- area(Aus_2008_6) / 1000000
+
+Aus_2009_6$area_sqkm <- area(Aus_2009_6) / 1000000
+
+Aus_2010_6$area_sqkm <- area(Aus_2010_6) / 1000000
+
+Aus_2011_6$area_sqkm <- area(Aus_2011_6) / 1000000
+
+Aus_2012_6$area_sqkm <- area(Aus_2012_6) / 1000000
+
+Aus_2013_6$area_sqkm <- area(Aus_2013_6) / 1000000
+
+Aus_2014_6$area_sqkm <- area(Aus_2014_6) / 1000000
+
+Aus1$area_sqkm <- area(Aus1) / 1000000
+
+Aus2$area_sqkm <- area(Aus2) / 1000000
+
+Aus3$area_sqkm <- area(Aus3) / 1000000
+
+
+Aus_2001_61<- Aus_2001_6@data
+
+Aus_2002_61 <- Aus_2002_6@data
+
+Aus_2003_61 <-Aus_2003_6@data
+
+Aus_2004_61 <- Aus_2004_6@data
+
+Aus_2005_61 <- Aus_2005_6@data
+
+Aus_2006_61 <- Aus_2006_6@data
+
+Aus_2007_61 <- Aus_2007_6@data
+
+Aus_2008_61 <- Aus_2008_6@data
+
+Aus_2009_61 <- Aus_2009_6@data
+
+Aus_2010_61 <- Aus_2010_6@data
+
+Aus_2011_61<- Aus_2011_6@data
+
+Aus_2012_61<- Aus_2012_6@data
+
+Aus_2013_61 <- Aus_2013_6@data
+
+Aus_2014_61 <- Aus_2014_6@data
+
+Aus_2015_61<- Aus1@data
+
+Aus_2016_61 <- Aus2@data
+
+Aus_2017_61 <- Aus3@data
+
+
+
+Aus_2001_61_area<- Aus_2001_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2001_61_area $year<- 2001
+
+Aus_2002_61_area<- Aus_2002_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2002_61_area $year<- 2002
+
+Aus_2003_61_area<- Aus_2003_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2003_61_area $year<- 2003
+
+Aus_2004_61_area<- Aus_2004_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2004_61_area $year<- 2004
+
+Aus_2005_61_area<- Aus_2005_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2005_61_area $year<- 2005
+
+Aus_2006_61_area<- Aus_2006_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2006_61_area $year<- 2006
+
+Aus_2007_61_area<- Aus_2007_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2007_61_area $year<- 2007
+
+Aus_2008_61_area<- Aus_2008_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2008_61_area $year<- 2008
+
+Aus_2009_61_area<- Aus_2009_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2009_61_area $year<- 2009
+
+
+Aus_2010_61_area<- Aus_2010_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2010_61_area $year<- 2010
+
+Aus_2011_61_area<- Aus_2011_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2011_61_area $year<- 2011
+
+
+Aus_2012_61_area<- Aus_2012_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2012_61_area $year<- 2012
+
+Aus_2013_61_area<- Aus_2013_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2013_61_area $year<- 2013
+
+Aus_2014_61_area<- Aus_2014_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2014_61_area $year<- 2014
+
+Aus_2015_61_area<- Aus_2015_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2015_61_area $year<- 2015
+
+Aus_2016_61_area<- Aus_2016_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2016_61_area $year<- 2016
+
+
+Aus_2017_61_area<- Aus_2017_61 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2017_61_area $year<- 2017
+
+p<-ggplot(data=Final_dataset, aes(x=year, y=area_sqkm)) +
+  geom_bar(stat="identity")+ 
+  labs(title="Active wild fire areas in Australia from 2001-2017 in June", y= "Area [sqkm]", x = "Year [-]") + 
+  theme_minimal()+theme(axis.text=element_text(size=10, color = "black"),
+                                       axis.title=element_text(size=12,face="bold"))+
+  theme(plot.title = element_text(color = "brown"))+theme(panel.border = element_rect(colour = "black", fill=NA, size=1))+
+  scale_x_continuous(limits = c(2000,2018), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0,120000), expand = c(0, 0)) 
+p
+
+```
+![](README_files/figure-gfm/unnamed-chunk-1-4.png)<!-- -->
+
