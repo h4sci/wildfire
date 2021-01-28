@@ -94,19 +94,32 @@ dbListTables(con)
 
 ### First tests with limited number of elements loaded
 # Final areas
-rs <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.final_ba_2000 LIMIT 1")
-dbFetch(rs)     # worked out!
+rs1 <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.final_ba_2000 LIMIT 1")
+dbFetch(rs1)     # worked out!
 # Active areas
-rs <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.active_areas_2001 LIMIT 2")
-dbFetch(rs)     # worked out!
+rs2 <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.active_areas_2001 LIMIT 2")
+dbFetch(rs2)     # worked out!
+
+
+
+
+### Load data for a map of Australia
+library(geojsonsf)
+australia_sf <- geojson_sf("Raw_Data/geojson/2c97c1efc6a175f3c06b62dae125c372.geojson")
+
+# Extract coordinates for the corresponding boundary box
+head(australia_sf,3)
+bbox_list <- lapply(st_geometry(australia_sf), st_bbox)
+View(bbox_list)
+
 
 
 
 ### Query data for one year only and plot it
 # Query it
-rs <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.active_areas_2001 WHERE nasa_modis_ba.active_areas_2001.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693)")
-# Fetch it
-dbout <- dbFetch(rs)  
+rs3 <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.active_areas_2001 WHERE nasa_modis_ba.active_areas_2001.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693)")
+# Fetch it in an object called dbout (database output)
+dbout <- dbFetch(rs3)  
 # Add another variable that is a converted version of the wkb_geometry variable (namely a sfc_geometry)
 dbout$sfc_geometry <- st_as_sfc(
   dbout$wkb_geometry,
@@ -116,34 +129,37 @@ dbout$sfc_geometry <- st_as_sfc(
   crs = NA_crs_
 )
 
-# Normal plot
-plot(dbout_sfc)
-# Another plot
-ggplot() + geom_sf(data=dbout_sfc,colour='red') + guides(fill = guide_none())
+## Normal plot                                                                  # plot works but it takes one or two minutes
+# plot(dbout$sfc_geometry)
 
-# Get map of Australia
-library(geojsonsf)
-australia_sf <- geojson_sf("Raw_Data/geojson/2c97c1efc6a175f3c06b62dae125c372.geojson")
-# Plot with borders of Australia
-ggplot(australia_sf) + 
-  geom_sf() +
-  geom_sf(data = dbout_sfc, colour = 'red') +  
-  guides(fill = guide_none()) 
+## Another plot                                                                 # plot works but it takes one or two minutes
+# ggplot() +
+#  geom_sf(data = dbout$sfc_geometry, colour = 'red') +
+#  guides(fill = guide_none())
+
+## Plot with borders of Australia                                               # plot works but it takes three or four minutes
+# ggplot(australia_sf) +
+#   geom_sf() +
+#   geom_sf(data = dbout$sfc_geometry, colour = 'red') +
+#   labs(
+#     title = "Active Areas",
+#     subtitle = "Australia in 2001",
+#     x = "Latitude",
+#     y = "Longitude"
+#   ) +
+#   guides(fill = guide_none())
+# Saving only workes if a folder called "maps" is created next to the folder "Raw_Data"
+# ggsave("maps/active_areas_Australia_2001.png", width = 8, height = 8, dpi = 300, units = "in")
+# However, it takes a while to be able to open it after saving/storing it in the the folder "maps"
+# (propably cause its size is too large)
 
 
 
 
-### Boundary Box
-head(australia_sf,3)
-bbox_list <- lapply(st_geometry(australia_sf), st_bbox)
-View(bbox_list)
-
-
-
-
-### Two options to load several tables/elements (of different years) at once
+### Two alternatives to load several tables/elements (of different years) at once
 
 ### 1. Alternative: Use "UNION ALL" in dbSendQuery()
+# Query it
 rs <- dbSendQuery(con, 
                   "(SELECT * FROM nasa_modis_ba.active_areas_2001 
                   WHERE nasa_modis_ba.active_areas_2001.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
@@ -198,17 +214,18 @@ rs <- dbSendQuery(con,
                   UNION ALL
                   (SELECT * FROM nasa_modis_ba.active_areas_2018
                   WHERE nasa_modis_ba.active_areas_2018.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))")
-# Fetch in an object alled db_out (database_output)
-db_out <- dbFetch(rs)  
+# Fetch it in an object called db_out (database_output)
+db_out <- dbFetch(rs)                                                           # this is necessary but takes one or two minutes 
 # Add another variable that is a converted version of the wkb_geometry variable (namely a sfc_geometry)
-db_out$sfc_geometry <- st_as_sfc(
+db_out$sfc_geometry <- st_as_sfc(                                               # this is necessary but takes two or three minutes 
   db_out$wkb_geometry,
   EWKB = TRUE,
   spatialite = FALSE,
   pureR = FALSE,
   crs = NA_crs_
 )
-# Worked out as inteded:
+# Worked out as intended:
+head(db_out)
 class(db_out)
 class(db_out$wkb_geometry)
 class(db_out$sfc_geometry)     # can be used for plotting
@@ -219,7 +236,8 @@ library(lubridate)
 db_out$burn_year <- year(db_out$burndate)
 db_out$burn_month <- month(db_out$burndate)
 library(zoo)
-db_out$burn_yearmon <- as.yearmon(paste0(db_out$burn_year, "-", db_out$burn_month))
+db_out$burn_yearmon <-                                                          # this is NOT necessary and takes one or two minutes
+  as.yearmon(paste0(db_out$burn_year, "-", db_out$burn_month))
 
 
 # Let's continue by sub-setting (e.g. data frame for active areas in 2001 only)
@@ -240,34 +258,37 @@ dim(dbout)[1]
 ## Test outside of the loop
 years <- 2001:2018
 rs_test <- dbSendQuery(con, sprintf("SELECT * FROM nasa_modis_ba.active_areas_%.f WHERE nasa_modis_ba.active_areas_%.f.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693)", years[1], years[1])) 
-dbFetch(rs_test)      # works!
+dbFetch(rs_test)                                                                # works!
 
 ## Loop
 # Create a vector for the relevant years (time period of the provided dataset)
 years <- 2001:2018
 # Create an empty output list with the correct length
-rs2 <- vector("list", length(2001:2018))
+rs_test <- vector("list", length(2001:2018))
 # Actual loop
 for (i in 1:18){
   # Store query in year/iteration i
-  rs2[[i]] <- dbSendQuery(con, sprintf("SELECT * FROM nasa_modis_ba.active_areas_%.f WHERE nasa_modis_ba.active_areas_%.f.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693)", years[i], years[i])) 
+  rs_test[[i]] <- dbSendQuery(con, sprintf("SELECT * FROM nasa_modis_ba.active_areas_%.f WHERE nasa_modis_ba.active_areas_%.f.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693)", years[i], years[i])) 
   # Print the current i and year to see whether the loop really runs through as intended
   print(i)
   print(years[i])
-}
-# The following commands show that the loop ran through but the data was not stored as intended in every of the 18 elements of the loop
-dbFetch(rs2[[1]])
-rs2[[1]]@sql
-rs2[[1]]@conn
-rs2[[1]]@ptr
-rs2[[1]]@bigint
+}                                                                               # loop runs through as intended BUT...
+# ... the following commands show that the data was not stored as intended in the output vector rs_test (in every single iteration of the loop)
+dbFetch(rs_test[[1]])
+rs_test[[1]]@sql
+rs_test[[1]]@conn
+rs_test[[1]]@ptr
+rs_test[[1]]@bigint
 
 
 
 
 
 
-# Try to acces boundary data (Stephan) ------------------------------------
+
+##### THE LAST TWO SECTIONS NEED NOT BE RAN #####
+
+# Try to access boundary data (Stephan) ------------------------------------
 library(geojsonR)
 boundary_aus= FROM_GeoJson(url_file_string = "Raw_Data/geojson/2c97c1efc6a175f3c06b62dae125c372.geojson")
 #it works to read in the data set as a large list
