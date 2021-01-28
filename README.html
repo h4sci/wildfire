@@ -743,7 +743,7 @@ Aus2$area_sqkm &lt;- area(Aus2) / 1000000
 Aus3$area_sqkm &lt;- area(Aus3) / 1000000
 
 
-## chnaged the shafefile to data
+## extracted the data from the shapefiles
 
 Aus_2001_61&lt;- Aus_2001_6@data
 
@@ -780,7 +780,7 @@ Aus_2016_61 &lt;- Aus2@data
 Aus_2017_61 &lt;- Aus3@data
 
 
-## calculated the sum of the active fires areas
+## Total area of the shapefile
 
 Aus_2001_61_area&lt;- Aus_2001_61 %&gt;%
   summarize_if(is.numeric, sum, na.rm=TRUE)
@@ -869,6 +869,12 @@ Aus_2017_61_area&lt;- Aus_2017_61 %&gt;%
   summarize_if(is.numeric, sum, na.rm=TRUE)
 
 Aus_2017_61_area $year&lt;- 2017
+
+Final_dataset&lt;- rbind(Aus_2001_61_area, Aus_2002_61_area, Aus_2003_61_area, Aus_2004_61_area, Aus_2005_61_area
+                      , Aus_2006_61_area, Aus_2007_61_area, Aus_2008_61_area, Aus_2009_61_area, Aus_2010_61_area
+                      , Aus_2011_61_area, Aus_2012_61_area, Aus_2013_61_area, Aus_2014_61_area, Aus_2015_61_area
+                      , Aus_2016_61_area, Aus_2017_61_area)
+
 
 p&lt;-ggplot(data=Final_dataset, aes(x=year, y=area_sqkm)) +
   geom_bar(stat=&quot;identity&quot;)+ 
