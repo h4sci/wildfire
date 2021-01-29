@@ -1,0 +1,4 @@
+- How to query by polygons/country boundaries? Load shapefile in DB?
+- Correct geo-reference system crs?
+- How would different tables in postgis database be connected?
+- Can R objects (which are not in the db) be used for queries?
