@@ -90,7 +90,7 @@ tmpdir_R <- tempdir()
 ##Function to read data into R
 from_s <-2000
 to_s   <-2017
-months_s<-c("6_", "7_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
+months_s<-c("1_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
 #The following lines define a string vector to load the sample
 sampleyears<-seq.int(from_s, to_s, 1)
 sampleyears <- as.character(sampleyears) 
@@ -221,7 +221,7 @@ plot(Aus6, main="july2017", col.main= "red")
 
 
 
-## Area changes from 2000 to 2008
+## Area changes from 2001 to 2017 for June month
 
 
 Aus_2001_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2001.shp")
@@ -253,7 +253,7 @@ Aus_2013_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2013.shp")
 Aus_2014_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2014.shp")
 
 
-## extarct teh data
+## extract the area of shapefiles
 
 Aus_2001_6$area_sqkm <- area(Aus_2001_6) / 1000000
 
@@ -414,16 +414,536 @@ Aus_2017_61_area<- Aus_2017_61 %>%
 
 Aus_2017_61_area $year<- 2017
 
-
 Final_dataset<- rbind(Aus_2001_61_area, Aus_2002_61_area, Aus_2003_61_area, Aus_2004_61_area, Aus_2005_61_area
                       , Aus_2006_61_area, Aus_2007_61_area, Aus_2008_61_area, Aus_2009_61_area, Aus_2010_61_area
                       , Aus_2011_61_area, Aus_2012_61_area, Aus_2013_61_area, Aus_2014_61_area, Aus_2015_61_area
                       , Aus_2016_61_area, Aus_2017_61_area)
 
-p<-ggplot(data=Final_dataset, aes(x=year, y=area_sqkm)) +
-  geom_bar(stat="identity")
+
+## Area changes from 2001 to 2017 for June month
+
+Aus_2001_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2001.shp")
+
+Aus_2002_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2002.shp")
+
+Aus_2003_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2003.shp")
+
+Aus_2004_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2004.shp")
+
+Aus_2005_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2005.shp")
+
+Aus_2006_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2006.shp")
+
+Aus_2007_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2007.shp")
+
+Aus_2008_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2008.shp")
+
+Aus_2009_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2009.shp")
+
+Aus_2010_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2010.shp")
+
+Aus_2011_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2011.shp")
+
+Aus_2012_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2012.shp")
+
+Aus_2013_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2013.shp")
+
+Aus_2014_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2014.shp")
+
+Aus_2015_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2015.shp")
+
+Aus_2016_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2016.shp")
+
+Aus_2017_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2017.shp")
+
+
+Aus_2001_1$area_sqkm <- area(Aus_2001_1) / 1000000
+
+Aus_2002_1$area_sqkm <- area(Aus_2002_1) / 1000000
+
+Aus_2003_1$area_sqkm <- area(Aus_2003_1) / 1000000
+
+Aus_2004_1$area_sqkm <- area(Aus_2004_1) / 1000000
+
+Aus_2005_1$area_sqkm <- area(Aus_2005_1) / 1000000
+
+Aus_2006_1$area_sqkm <- area(Aus_2006_1) / 1000000
+
+Aus_2007_1$area_sqkm <- area(Aus_2007_1) / 1000000
+
+Aus_2008_1$area_sqkm <- area(Aus_2008_1) / 1000000
+
+Aus_2009_1$area_sqkm <- area(Aus_2009_1) / 1000000
+
+Aus_2010_1$area_sqkm <- area(Aus_2010_1) / 1000000
+
+Aus_2011_1$area_sqkm <- area(Aus_2011_1) / 1000000
+
+Aus_2012_1$area_sqkm <- area(Aus_2012_1) / 1000000
+
+Aus_2013_1$area_sqkm <- area(Aus_2013_1) / 1000000
+
+Aus_2014_1$area_sqkm <- area(Aus_2014_1) / 1000000
+
+Aus_2015_1$area_sqkm <- area(Aus_2015_1) / 1000000
+
+Aus_2016_1$area_sqkm <- area(Aus_2016_1) / 1000000
+
+Aus_2017_1$area_sqkm <- area(Aus_2017_1) / 1000000
+
+
+
+Aus_2001_11<- Aus_2001_1@data
+
+Aus_2002_11 <- Aus_2002_1@data
+
+Aus_2003_11 <-Aus_2003_1@data
+
+Aus_2004_11 <- Aus_2004_1@data
+
+Aus_2005_11 <- Aus_2005_1@data
+
+Aus_2006_11 <- Aus_2006_1@data
+
+Aus_2007_11 <- Aus_2007_1@data
+
+Aus_2008_11 <- Aus_2008_1@data
+
+Aus_2009_11 <- Aus_2009_1@data
+
+Aus_2010_11 <- Aus_2010_1@data
+
+Aus_2011_11<- Aus_2011_1@data
+
+Aus_2012_11<- Aus_2012_1@data
+
+Aus_2013_11 <- Aus_2013_1@data
+
+Aus_2014_11 <- Aus_2014_1@data
+
+Aus_2015_11<- Aus_2015_1@data
+
+Aus_2016_11 <- Aus_2016_1@data
+
+Aus_2017_11 <- Aus_2017_1@data
+
+
+
+Aus_2001_11_area<- Aus_2001_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2001_11_area $year<- 2001
+
+Aus_2002_11_area<- Aus_2002_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2002_11_area $year<- 2002
+
+Aus_2003_11_area<- Aus_2003_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2003_11_area $year<- 2003
+
+Aus_2004_11_area<- Aus_2004_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2004_11_area $year<- 2004
+
+Aus_2005_11_area<- Aus_2005_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2005_11_area $year<- 2005
+
+Aus_2006_11_area<- Aus_2006_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2006_11_area $year<- 2006
+
+Aus_2007_11_area<- Aus_2007_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2007_11_area $year<- 2007
+
+Aus_2008_11_area<- Aus_2008_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2008_11_area $year<- 2008
+
+Aus_2009_11_area<- Aus_2009_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2009_11_area $year<- 2009
+
+
+Aus_2010_11_area<- Aus_2010_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2010_11_area $year<- 2010
+
+Aus_2011_11_area<- Aus_2011_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2011_11_area $year<- 2011
+
+
+Aus_2012_11_area<- Aus_2012_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2012_11_area $year<- 2012
+
+Aus_2013_11_area<- Aus_2013_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2013_11_area $year<- 2013
+
+Aus_2014_11_area<- Aus_2014_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2014_11_area $year<- 2014
+
+Aus_2015_11_area<- Aus_2015_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2015_11_area $year<- 2015
+
+Aus_2016_11_area<- Aus_2016_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2016_11_area $year<- 2016
+
+
+Aus_2017_11_area<- Aus_2017_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2017_11_area $year<- 2017
+
+Final_dataset1<- rbind(Aus_2001_11_area, Aus_2002_11_area, Aus_2003_11_area, Aus_2004_11_area, Aus_2005_11_area
+                      , Aus_2006_11_area, Aus_2007_11_area, Aus_2008_11_area, Aus_2009_11_area, Aus_2010_11_area
+                      , Aus_2011_11_area, Aus_2012_11_area, Aus_2013_11_area, Aus_2014_11_area, Aus_2015_11_area
+                      , Aus_2016_11_area, Aus_2017_11_area)
+Final_dataset$month<- "June"
+
+Final_dataset1$month<- "January"
+
+Final_dataset2<- rbind(Final_dataset, Final_dataset1)
+
+
+p<-ggplot(data=Final_dataset2, aes(x=year, y=area_sqkm, color = month)) +
+  geom_bar(stat="identity",  position=position_dodge())+ 
+  labs(title="Active wild fire areas in Australia from 2001-2017 in January and June", y= "Area [sqkm]", x = "Year [-]") + 
+  theme_minimal()+theme(axis.text=element_text(size=10, color = "black"),
+                                       axis.title=element_text(size=12,face="bold"))+
+  theme(plot.title = element_text(color = "brown"))+theme(panel.border = element_rect(colour = "black", fill=NA, size=1))+
+  scale_x_continuous(limits = c(2000,2018), expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0,120000), expand = c(0, 0)) +theme_bw()+dev.new(width=2, height=2) 
 p
 
+
+par(mfrow= c(2,2))
+
+plot(Aus_2001_1, main="Janaury 2001", col.main= "red")
+
+par(new=FALSE)
+
+plot(Aus_2001_6, main="June 2001", col.main= "red")
+
+par(new=FALSE)
+
+plot(Aus_2012_1, main="Janaury 2012", col.main= "red")
+
+par(new=FALSE)
+
+plot(Aus_2012_6, main="June 2012", col.main= "red")
+
+
+### database_wildfire
+
+Sys.Date()
+
+
+# Clear the global environment
+rm(list = ls())
+
+
+
+### Pre-settings
+
+## Load usual libraries 
+library(tidyverse)
+library(ggplot2)
+library(readxl)
+library(writexl)
+library(dplyr)
+# library(plyr)
+# library(forcats)
+# library(readxl)
+# library(writexl)
+# library(haven)
+# library(scales)
+# library(plm)
+# library(data.table)
+
+## Load specific libraries
+library(DBI)
+library(RPostgres)
+library(odbc)
+library(sf)
+#library(sparklyr)
+#library(sparklyr.nested)
+#library(Rcpp)
+
+
+
+## Set crucial/useful option
+#options(na.action = na.warn)    # Option set as such that R will return a warning if there are any missings
+
+# Check working directory
+
+setwd("E:/Wild_fire_project/Unzip_file")
+getwd()
+
+
+
+
+### NEXT STEPS
+## 1) Need to find out what needs to be specified after "SELECT * FROM nasa_modis_ba.final_ba_2000 ......"
+# DONE
+## 2) Develop an approach loading several tables/elements (of different years) at once
+# DONE
+## 3) Find out how to load boundary-data (as wkb-format?)
+# DONE
+## 4) ???
+
+
+
+
+### SQL queries -------------------------------------------------------------
+### TASK:
+# The idea is to send the SQL queries as (sanitized) text strings to the DB
+
+
+
+### Set up a connection with the gwis database
+
+## Pre-definitions
+db_name <- "gwis"
+host_name <- "localhost"
+username <- "user1"
+password <- "1"
+
+## Connect with the gwis database
+con <- dbConnect(drv = RPostgres::Postgres(),
+                 #RMySQL::MySQL(),   # ?
+                 dbname = db_name,
+                 host = host_name,         
+                 port = 5432,
+                 user = username,
+                 password = password)  
+#dbDisconnect(con)
+
+# Other useful commands
+dbListTables(con)
+#dbReadTable(con, "final_ba_2000")
+# Fehler: Failed to prepare query: FEHLER:  Relation ?final_ba_2000? existiert nicht
+# LINE 1: SELECT * FROM  "final_ba_2000"
+# ^
+
+
+
+### First tests with limited number of elements loaded
+# Final areas
+rs1 <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.final_ba_2000 LIMIT 1")
+dbFetch(rs1)     # worked out!
+# Active areas
+rs2 <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.active_areas_2001 LIMIT 2")
+dbFetch(rs2)     # worked out!
+
+
+
+
+### Load data for a map of Australia
+library(geojsonsf)
+australia_sf <- geojson_sf("./Raw_Data/geojson/2c97c1efc6a175f3c06b62dae125c372.geojson")
+
+# Extract coordinates for the corresponding boundary box
+head(australia_sf,3)
+bbox_list <- lapply(st_geometry(australia_sf), st_bbox)
+View(bbox_list)
+
+
+
+
+### Query data for one year only and plot it
+# Query it
+rs3 <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.active_areas_2001 WHERE nasa_modis_ba.active_areas_2001.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693)")
+# Fetch it in an object called dbout (database output)
+dbout <- dbFetch(rs3)  
+# Add another variable that is a converted version of the wkb_geometry variable (namely a sfc_geometry)
+dbout$sfc_geometry <- st_as_sfc(
+  dbout$wkb_geometry,
+  EWKB = TRUE,
+  spatialite = FALSE,
+  pureR = FALSE,
+  crs = NA_crs_
+)
+
+## Normal plot                                                                  # plot works but it takes one or two minutes
+#plot(dbout$sfc_geometry)
+
+## Another plot                                                                 # plot works but it takes one or two minutes
+# ggplot() +
+#  geom_sf(data = dbout$sfc_geometry, colour = 'red') +
+#  guides(fill = guide_none())
+
+ #Plot with borders of Australia                                               # plot works but it takes three or four minutes
+ggplot(australia_sf) +
+ geom_sf() +
+  geom_sf(data = dbout$sfc_geometry, colour = 'red') +
+ labs(
+    title = "Active Areas",
+    subtitle = "Australia in 2001",
+    x = "Latitude",
+    y = "Longitude"
+  ) +
+   guides(fill = guide_none())
+# Saving only workes if a folder called "maps" is created next to the folder "Raw_Data"
+# ggsave("maps/active_areas_Australia_2001.png", width = 8, height = 8, dpi = 300, units = "in")
+# However, it takes a while to be able to open it after saving/storing it in the the folder "maps"
+# (propably cause its size is too large)
+
+
+
+
+### Two alternatives to load several tables/elements (of different years) at once
+
+### 1. Alternative: Use "UNION ALL" in dbSendQuery()
+# Query it
+rs <- dbSendQuery(con, 
+                  "(SELECT * FROM nasa_modis_ba.active_areas_2001 
+                  WHERE nasa_modis_ba.active_areas_2001.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2002
+                  WHERE nasa_modis_ba.active_areas_2002.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2003
+                  WHERE nasa_modis_ba.active_areas_2003.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2004
+                  WHERE nasa_modis_ba.active_areas_2004.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2005
+                  WHERE nasa_modis_ba.active_areas_2005.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2006
+                  WHERE nasa_modis_ba.active_areas_2006.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2007
+                  WHERE nasa_modis_ba.active_areas_2007.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2008
+                  WHERE nasa_modis_ba.active_areas_2008.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2009
+                  WHERE nasa_modis_ba.active_areas_2009.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2010
+                  WHERE nasa_modis_ba.active_areas_2010.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2011
+                  WHERE nasa_modis_ba.active_areas_2011.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2012
+                  WHERE nasa_modis_ba.active_areas_2012.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2013
+                  WHERE nasa_modis_ba.active_areas_2013.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2014
+                  WHERE nasa_modis_ba.active_areas_2014.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2015
+                  WHERE nasa_modis_ba.active_areas_2015.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2016
+                  WHERE nasa_modis_ba.active_areas_2016.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2017
+                  WHERE nasa_modis_ba.active_areas_2017.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))
+                  UNION ALL
+                  (SELECT * FROM nasa_modis_ba.active_areas_2018
+                  WHERE nasa_modis_ba.active_areas_2018.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693))")
+# Fetch it in an object called db_out (database_output)
+db_out <- dbFetch(rs)                                                           # this is necessary but takes one or two minutes 
+# Add another variable that is a converted version of the wkb_geometry variable (namely a sfc_geometry)
+db_out$sfc_geometry <- st_as_sfc(                                               # this is necessary but takes two or three minutes 
+  db_out$wkb_geometry,
+  EWKB = TRUE,
+  spatialite = FALSE,
+  pureR = FALSE,
+  crs = NA_crs_
+)
+# Worked out as intended:
+head(db_out)
+class(db_out)
+class(db_out$wkb_geometry)
+class(db_out$sfc_geometry)     # can be used for plotting
+class(db_out$burndate)
+
+# Add additional time variables
+library(lubridate)
+db_out$burn_year <- year(db_out$burndate)
+db_out$burn_month <- month(db_out$burndate)
+library(zoo)
+db_out$burn_yearmon <-                                                          # this is NOT necessary and takes one or two minutes
+  as.yearmon(paste0(db_out$burn_year, "-", db_out$burn_month))
+
+
+# Let's continue by sub-setting (e.g. data frame for active areas in 2001 only)
+active_2001_jan_df <- db_out %>% 
+  dplyr::filter(burn_year == 2001, burn_month == 1)
+# Open question:
+# Why is there a difference the length of the following two data frames?
+dim(active_2001_jan_df)[1]
+
+# Something that enters because of UNION ALL??
+
+ggplot(australia_sf) +
+  geom_sf() +
+  geom_sf(data = active_2001_jan_df$sfc_geometry, colour = 'red') +
+  labs(
+    title = "Active Areas",
+    subtitle = "Australia in 2001",
+    x = "Latitude",
+    y = "Longitude"
+  ) +
+  guides(fill = guide_none())
+
+### 2. Alternative: Using sprint() in a loop to load all years at once 
+## Test outside of the loop
+# years <- 2001:2018
+# rs_test <- dbSendQuery(con, sprintf("SELECT * FROM nasa_modis_ba.active_areas_%.f WHERE nasa_modis_ba.active_areas_%.f.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693)", years[1], years[1])) 
+# dbFetch(rs_test)                                                                # works!
+# 
+# ## Loop
+# # Create a vector for the relevant years (time period of the provided dataset)
+# years <- 2001:2018
+# # Create an empty output list with the correct length
+# rs_test <- vector("list", length(2001:2018))
+# # Actual loop
+# for (i in 1:18){
+#   # Store query in year/iteration i
+#   rs_test[[i]] <- dbSendQuery(con, sprintf("SELECT * FROM nasa_modis_ba.active_areas_%.f WHERE nasa_modis_ba.active_areas_%.f.wkb_geometry && ST_MakeEnvelope(72.57811, -55.11579,  167.9966, -9.140693)", years[i], years[i])) 
+#   # Print the current i and year to see whether the loop really runs through as intended
+#   print(i)
+#   print(years[i])
+# }                                                                               # loop runs through as intended BUT...
+# # ... the following commands show that the data was not stored as intended in the output vector rs_test (in every single iteration of the loop)
+# dbFetch(rs_test[[1]])
+# rs_test[[1]]@sql
+# rs_test[[1]]@conn
+# rs_test[[1]]@ptr
+# rs_test[[1]]@bigint
+# 
 
 
 
