@@ -657,26 +657,6 @@ p<-ggplot(data=Final_dataset2, aes(x=year, y=area_sqkm, color = month)) +
 p
 
 
-#par(mfrow= c(2,2))
-
-#plot(Aus_2001_1, main="Janaury 2001", col.main= "red")
-
-#par(new=FALSE)
-
-#plot(Aus_2001_6, main="June 2001", col.main= "red")
-
-#par(new=FALSE)
-
-#plot(Aus_2012_1, main="Janaury 2012", col.main= "red")
-
-#par(new=FALSE)
-
-#plot(Aus_2012_6, main="June 2012", col.main= "red")
-
-
-
-
-
 ```    
 
 
