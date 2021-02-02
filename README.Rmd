@@ -16,13 +16,16 @@ To read the description of the dataset, please follow this paper [A global wildf
 We used the global wildfire dataset processed by  Artés et al., 2019. The main objective of this project was:
 to learn Github. Specifically how to clone a repository, how to commit, how to work in a team using Github.
 to learn the use of R for the spatial dataset
-to find the changes in the patterns of wildfire between 2000 to 2018 for Australia. 
+to find the changes in the patterns of wildfire between 2000 to 2018 for Australia.
 
+setwd("E:/Wild_fire_project/Unzip_file")
 
 ## Downloaded bulk data of wild fire
 
 ```{r} 
 setwd("E:/Wild_fire_project/Unzip_file")
+getwd() 
+
 #Working directory Structure
   #Working Directory: Wildfire
     #Folder: Raw_Data [do not write in this folder when processing data]
@@ -94,14 +97,17 @@ destfile = paste0(data.folder, fname.x)
 #download.file(urldatabase_f, "Raw_Data//MODIS_GWIS_Final_FireEvents.zip", mode="wb")
 #download.file(urldatabase_a, "Raw_Data/MODIS_GWIS_Active_FireEvents.zip", mode="wb")
 
+# Processing of data--------
+
 ##Unzip files
-##for (i in 1:length(destfile)){unzip(destfile[i],exdir=./Raw_Data")}
-#tmpdir_R <- tempdir()
+#for (i in 1:length(destfile)){unzip(destfile[i],exdir=./Raw_Data")}
+
+tmpdir_R <- tempdir()
 
 ##Function to read data into R
-from_s <-2015
+from_s <-2000
 to_s   <-2017
-months_s<-c("6_", "7_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
+months_s<-c("1_") #"1_","2_","3_","4_","5_","6_","7_","8_","9_","10_","11_","12_"
 #The following lines define a string vector to load the sample
 sampleyears<-seq.int(from_s, to_s, 1)
 sampleyears <- as.character(sampleyears) 
@@ -144,7 +150,7 @@ loadsample<-loadsample$loadsample
     
 shp_spdf <-readOGR ("./Raw_Data/data/MODIS_BA_GLOBAL_1_6_2015.shp")
   
-plot (shp_spdf, main="Global map of wildfire Active Areas during June 2015", col.main= "red")
+plot (shp_spdf,main="Global map of wildfire Active Areas during June 2015")
 
 ## we gave here bounding box to crop Australia (please follow this website to extract the bounding box:
 #https://gist.github.com/graydon/11198540
@@ -154,12 +160,11 @@ plot (shp_spdf, main="Global map of wildfire Active Areas during June 2015", col
 
 sub_Australia <- crop(shp_spdf, extent(113.338953078,153.569469029, -43.6345972634, -10.6681857235))
 
-plot(sub_Australia, main="Australia WIldfire Active Areas during June 2015")
-
+plot(sub_Australia, main="Australia Wildfire Active Areas during June 2015", col.main= "red")
 
 ## Write shapefile
 
-Aus1<- shapefile(sub_Australia,"./Raw_Data/data/Austest1.shp", overwrite=TRUE )
+Aus1<- shapefile(sub_Australia,"./Raw_Data/data/Austest1.shp",overwrite=TRUE )
 
 ## Crop multiple shapefiles
 
@@ -209,9 +214,7 @@ Aus6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_7_2017.shp")
 
 par(mfrow= c(2,3))
 
-par(new=FALSE)
-
-plot(Aus1, main="June2016", col.main= "red")
+plot(Aus1, main="June2015", col.main= "red")
 
 par(new=FALSE)
 
@@ -233,7 +236,9 @@ par(new=FALSE)
 
 plot(Aus6, main="july2017", col.main= "red")
 
-## Area changes from 2000 to 2008
+
+
+## Area changes from 2001 to 2017 for June month
 
 
 Aus_2001_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2001.shp")
@@ -265,7 +270,7 @@ Aus_2013_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2013.shp")
 Aus_2014_6<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_6_2014.shp")
 
 
-## extarct teh data
+## extract the area of shapefiles
 
 Aus_2001_6$area_sqkm <- area(Aus_2001_6) / 1000000
 
@@ -426,24 +431,255 @@ Aus_2017_61_area<- Aus_2017_61 %>%
 
 Aus_2017_61_area $year<- 2017
 
-
 Final_dataset<- rbind(Aus_2001_61_area, Aus_2002_61_area, Aus_2003_61_area, Aus_2004_61_area, Aus_2005_61_area
                       , Aus_2006_61_area, Aus_2007_61_area, Aus_2008_61_area, Aus_2009_61_area, Aus_2010_61_area
                       , Aus_2011_61_area, Aus_2012_61_area, Aus_2013_61_area, Aus_2014_61_area, Aus_2015_61_area
                       , Aus_2016_61_area, Aus_2017_61_area)
 
-p<-ggplot(data=Final_dataset, aes(x=year, y=area_sqkm)) +
-  geom_bar(stat="identity")+ 
-  labs(title="Active wild fire areas in Australia from 2001-2017 in June", y= "Area [sqkm]", x = "Year [-]") + 
+
+## Area changes from 2001 to 2017 for June month
+
+Aus_2001_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2001.shp")
+
+Aus_2002_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2002.shp")
+
+Aus_2003_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2003.shp")
+
+Aus_2004_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2004.shp")
+
+Aus_2005_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2005.shp")
+
+Aus_2006_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2006.shp")
+
+Aus_2007_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2007.shp")
+
+Aus_2008_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2008.shp")
+
+Aus_2009_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2009.shp")
+
+Aus_2010_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2010.shp")
+
+Aus_2011_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2011.shp")
+
+Aus_2012_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2012.shp")
+
+Aus_2013_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2013.shp")
+
+Aus_2014_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2014.shp")
+
+Aus_2015_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2015.shp")
+
+Aus_2016_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2016.shp")
+
+Aus_2017_1<- readOGR("./Raw_Data/data/Aus_extract/MODIS_BA_GLOBAL_1_1_2017.shp")
+
+
+Aus_2001_1$area_sqkm <- area(Aus_2001_1) / 1000000
+
+Aus_2002_1$area_sqkm <- area(Aus_2002_1) / 1000000
+
+Aus_2003_1$area_sqkm <- area(Aus_2003_1) / 1000000
+
+Aus_2004_1$area_sqkm <- area(Aus_2004_1) / 1000000
+
+Aus_2005_1$area_sqkm <- area(Aus_2005_1) / 1000000
+
+Aus_2006_1$area_sqkm <- area(Aus_2006_1) / 1000000
+
+Aus_2007_1$area_sqkm <- area(Aus_2007_1) / 1000000
+
+Aus_2008_1$area_sqkm <- area(Aus_2008_1) / 1000000
+
+Aus_2009_1$area_sqkm <- area(Aus_2009_1) / 1000000
+
+Aus_2010_1$area_sqkm <- area(Aus_2010_1) / 1000000
+
+Aus_2011_1$area_sqkm <- area(Aus_2011_1) / 1000000
+
+Aus_2012_1$area_sqkm <- area(Aus_2012_1) / 1000000
+
+Aus_2013_1$area_sqkm <- area(Aus_2013_1) / 1000000
+
+Aus_2014_1$area_sqkm <- area(Aus_2014_1) / 1000000
+
+Aus_2015_1$area_sqkm <- area(Aus_2015_1) / 1000000
+
+Aus_2016_1$area_sqkm <- area(Aus_2016_1) / 1000000
+
+Aus_2017_1$area_sqkm <- area(Aus_2017_1) / 1000000
+
+
+
+Aus_2001_11<- Aus_2001_1@data
+
+Aus_2002_11 <- Aus_2002_1@data
+
+Aus_2003_11 <-Aus_2003_1@data
+
+Aus_2004_11 <- Aus_2004_1@data
+
+Aus_2005_11 <- Aus_2005_1@data
+
+Aus_2006_11 <- Aus_2006_1@data
+
+Aus_2007_11 <- Aus_2007_1@data
+
+Aus_2008_11 <- Aus_2008_1@data
+
+Aus_2009_11 <- Aus_2009_1@data
+
+Aus_2010_11 <- Aus_2010_1@data
+
+Aus_2011_11<- Aus_2011_1@data
+
+Aus_2012_11<- Aus_2012_1@data
+
+Aus_2013_11 <- Aus_2013_1@data
+
+Aus_2014_11 <- Aus_2014_1@data
+
+Aus_2015_11<- Aus_2015_1@data
+
+Aus_2016_11 <- Aus_2016_1@data
+
+Aus_2017_11 <- Aus_2017_1@data
+
+
+
+Aus_2001_11_area<- Aus_2001_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2001_11_area $year<- 2001
+
+Aus_2002_11_area<- Aus_2002_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2002_11_area $year<- 2002
+
+Aus_2003_11_area<- Aus_2003_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2003_11_area $year<- 2003
+
+Aus_2004_11_area<- Aus_2004_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2004_11_area $year<- 2004
+
+Aus_2005_11_area<- Aus_2005_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2005_11_area $year<- 2005
+
+Aus_2006_11_area<- Aus_2006_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2006_11_area $year<- 2006
+
+Aus_2007_11_area<- Aus_2007_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2007_11_area $year<- 2007
+
+Aus_2008_11_area<- Aus_2008_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2008_11_area $year<- 2008
+
+Aus_2009_11_area<- Aus_2009_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2009_11_area $year<- 2009
+
+
+Aus_2010_11_area<- Aus_2010_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2010_11_area $year<- 2010
+
+Aus_2011_11_area<- Aus_2011_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2011_11_area $year<- 2011
+
+
+Aus_2012_11_area<- Aus_2012_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2012_11_area $year<- 2012
+
+Aus_2013_11_area<- Aus_2013_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2013_11_area $year<- 2013
+
+Aus_2014_11_area<- Aus_2014_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2014_11_area $year<- 2014
+
+Aus_2015_11_area<- Aus_2015_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2015_11_area $year<- 2015
+
+Aus_2016_11_area<- Aus_2016_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2016_11_area $year<- 2016
+
+
+Aus_2017_11_area<- Aus_2017_11 %>%
+  summarize_if(is.numeric, sum, na.rm=TRUE)
+
+Aus_2017_11_area $year<- 2017
+
+Final_dataset1<- rbind(Aus_2001_11_area, Aus_2002_11_area, Aus_2003_11_area, Aus_2004_11_area, Aus_2005_11_area
+                      , Aus_2006_11_area, Aus_2007_11_area, Aus_2008_11_area, Aus_2009_11_area, Aus_2010_11_area
+                      , Aus_2011_11_area, Aus_2012_11_area, Aus_2013_11_area, Aus_2014_11_area, Aus_2015_11_area
+                      , Aus_2016_11_area, Aus_2017_11_area)
+Final_dataset$month<- "June"
+
+Final_dataset1$month<- "January"
+
+Final_dataset2<- rbind(Final_dataset, Final_dataset1)
+
+
+p<-ggplot(data=Final_dataset2, aes(x=year, y=area_sqkm, color = month)) +
+  geom_bar(stat="identity",  position=position_dodge())+ 
+  labs(title="Active wild fire areas in Australia from 2001-2017 in January and June", y= "Area [sqkm]", x = "Year [-]") + 
   theme_minimal()+theme(axis.text=element_text(size=10, color = "black"),
                                        axis.title=element_text(size=12,face="bold"))+
   theme(plot.title = element_text(color = "brown"))+theme(panel.border = element_rect(colour = "black", fill=NA, size=1))+
   scale_x_continuous(limits = c(2000,2018), expand = c(0, 0)) +
-  scale_y_continuous(limits = c(0,120000), expand = c(0, 0)) 
+  scale_y_continuous(limits = c(0,120000), expand = c(0, 0)) +theme_bw()+dev.new(width=2, height=2) 
+
 p
+
+
+#par(mfrow= c(2,2))
+
+#plot(Aus_2001_1, main="Janaury 2001", col.main= "red")
+
+#par(new=FALSE)
+
+#plot(Aus_2001_6, main="June 2001", col.main= "red")
+
+#par(new=FALSE)
+
+#plot(Aus_2012_1, main="Janaury 2012", col.main= "red")
+
+#par(new=FALSE)
+
+#plot(Aus_2012_6, main="June 2012", col.main= "red")
+
+
 
 
 
 ```    
-    
+
+
+
+
     
