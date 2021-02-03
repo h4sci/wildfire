@@ -3,6 +3,8 @@ Wild Fire Project 2020
 Stephan Schneider, Maximilian Amberg, Surya Gupta
 
   - [Analysis using shapefiles](#analysis-using-shapefiles)
+  - [Analysis using database
+    wildfire](#analysis-using-database-wildfire)
 
 \#Wild Fire Project 2020
 
@@ -1029,8 +1031,9 @@ p
 
     ## Warning: Removed 3 rows containing missing values (geom_bar).
 
-![](README_files/figure-gfm/unnamed-chunk-1-4.png)<!-- --> \#\# Analysis
-using database\_wildfire
+![](README_files/figure-gfm/unnamed-chunk-1-4.png)<!-- -->
+
+## Analysis using database wildfire
 
 ``` r
 Sys.Date()
