@@ -644,9 +644,9 @@ p<-ggplot(data=Final_dataset2, aes(x=year, y=area_sqkm, color = month)) +
 
 p
 
-
 ```
-## Analysis using database_wildfire
+
+## Analysis using database wildfire
 
 ```{r}
 
