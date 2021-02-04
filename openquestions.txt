@@ -2,3 +2,8 @@
 - Correct geo-reference system crs?
 - How would different tables in postgis database be connected?
 - Can R objects (which are not in the db) be used for queries?
+	- pq_geometry -- is that a specific R-geo-format
+
+- Infrastructure for working on large/global scale
+	Matthias: not necessarily need more computation power (e.g. Euler cluster); set up good database first; then see what sort of calculations you want to do
+	
