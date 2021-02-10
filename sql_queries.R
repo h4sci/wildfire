@@ -99,6 +99,8 @@ dbFetch(rs1)     # worked out!
 # Active areas
 rs2 <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.active_areas_2001 LIMIT 2")
 dbFetch(rs2)     # worked out!
+rs3 <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.ne_50m_admin_0_countries LIMIT 1")
+dbFetch(rs3)     # worked out!
 
 
 
