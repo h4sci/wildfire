@@ -99,7 +99,8 @@ dbFetch(rs1)     # worked out!
 # Active areas
 rs2 <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.active_areas_2001 LIMIT 2")
 dbFetch(rs2)     # worked out!
-rs3 <- dbSendQuery(con, "SELECT * FROM nasa_modis_ba.ne_50m_admin_0_countries LIMIT 1")
+rs3 <- dbSendQuery(con, "SELECT * 
+                   FROM nasa_modis_ba.ne_50m_admin_0_countries LIMIT 1")
 dbFetch(rs3)     # worked out!
 
 
@@ -409,3 +410,57 @@ View(bbox_list)
 # https://stackoverflow.com/questions/60927929/querying-sql-server-geospatial-data-from-r
 # https://medium.com/rv-data/working-with-spatial-databases-and-r-43f37ea0d499
 # https://github.com/tidyverse/dplyr/issues/2055
+
+
+
+#Query by shape of countries---------------------------------------------------------
+
+### Query data for one year only and plot it
+# Query it
+
+rs4 <- dbSendQuery(con, "SELECT * 
+                   FROM nasa_modis_ba.active_areas_2001 as fires
+                   JOIN nasa_modis_ba.ne_50m_admin_0_countries AS countries 
+                   ON ST_Contains(countries.geom, fires.wkb_geometry)
+                   WHERE countries.ISO_A3='AUS'
+                   ")
+dbout <- dbFetch(rs4)  
+
+  #Example from PostGIS manual:
+    #https://postgis.net/workshops/postgis-intro/joins.html                               
+    #SELECT 
+    #subways.name AS subway_name,
+    #neighborhoods.name AS neighborhood_name,
+    #neighborhoods.boroname AS borough
+    #FROM nyc_neighborhoods AS neighborhoods
+    #JOIN nyc_subway_stations AS subways
+    #ON ST_Contains(neighborhoods.geom, subways.geom)
+    #WHERE subways.name = 'Broad St';
+
+#is this really necessary to plot the data in R?
+dbout$sfc_geometry <- st_as_sfc( 
+  dbout$wkb_geometry,
+  EWKB = TRUE,
+  spatialite = FALSE,
+  pureR = FALSE,
+  crs = NA_crs_
+)
+
+rs5 <- dbSendQuery(con, "SELECT geom 
+                   FROM nasa_modis_ba.ne_50m_admin_0_countries AS countries
+                   WHERE countries.ISO_A3='AUS'
+                   ")
+AUS <- dbFetch(rs5)   
+
+AUS_sfc <- st_as_sfc( 
+  AUS$geom,
+  EWKB = TRUE,
+  spatialite = FALSE,
+  pureR = FALSE,
+  crs = NA_crs_
+)
+plot(AUS_sfc)
+
+ggplot(AUS_sfc)+geom_sf() +geom_sf(data=dbout$sfc_geometry,colour='red')+  guides(fill = guide_none()) 
+
+
